@@ -1,0 +1,1289 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The English Builder Machine™ - Plantilla Modular Wireframe</title>
+    
+    <!-- Google Fonts: Plus Jakarta Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome para Iconos de Apoyo -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* ==========================================================================
+           VARIABLES DE DISEÑO Y COLORES DEL SISTEMA (Modifica aquí tus tonos)
+           ========================================================================== */
+        :root {
+            /* Colores de Marca */
+            --color-primary-blue: #1E40AF;
+            --color-sky-blue: #0284C7;
+            --color-yellow-accent: #F59E0B;
+            --color-red-accent: #EF4444;
+            --color-teal-accent: #14B8A6;
+            --color-orange-accent: #F97316;
+            --color-purple-accent: #8B5CF6;
+            --color-pink-accent: #EC4899;
+            --color-green-accent: #10B981;
+            
+            /* Neutros y Fondos */
+            --bg-light: #F8FAFC;
+            --bg-card: #FFFFFF;
+            --text-dark: #0F172A;
+            --text-muted: #64748B;
+            --border-color: #E2E8F0;
+
+            /* Tipografía */
+            --font-main: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        /* RESET BÁSICO */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: var(--font-main);
+        }
+
+        body {
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* CONTENEDOR MÁXIMO RESPONSIVO */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        /* ==========================================================================
+           ESTILOS PARA MARCOS / PLACEHOLDERS DE IMÁGENES Y AVATARES (SUBIDA FÁCIL)
+           ========================================================================== */
+        .image-placeholder {
+            border: 2px dashed #94A3B8;
+            background-color: #F1F5F9;
+            border-radius: 1rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+            text-align: center;
+            color: #475569;
+            transition: all 0.3s ease;
+            position: relative;
+            min-height: 180px;
+        }
+
+        .image-placeholder:hover {
+            border-color: var(--color-sky-blue);
+            background-color: #E0F2FE;
+            color: var(--color-primary-blue);
+        }
+
+        .image-placeholder i {
+            font-size: 2.2rem;
+            margin-bottom: 0.5rem;
+            color: #64748B;
+        }
+
+        .image-placeholder .placeholder-label {
+            font-size: 0.85rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: #0F172A;
+            margin-bottom: 0.25rem;
+        }
+
+        .image-placeholder .placeholder-hint {
+            font-size: 0.75rem;
+            color: #64748B;
+        }
+
+        /* Avatar circular placeholder */
+        .avatar-placeholder {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: 3px dashed var(--color-sky-blue);
+            background-color: #E0F2FE;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem auto;
+            color: var(--color-primary-blue);
+        }
+
+        /* ==========================================================================
+           ESTILOS GENERALES DE BOTONES Y Sombra BLOCK-SHADOW (Estilo LEGO)
+           ========================================================================== */
+        .btn-block {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 0.85rem 1.75rem;
+            font-weight: 800;
+            font-size: 0.95rem;
+            border-radius: 0.75rem;
+            text-decoration: none;
+            cursor: pointer;
+            border: 2px solid rgba(0, 0, 0, 0.2);
+            box-shadow: 0 4px 0 0 rgba(0, 0, 0, 0.2);
+            transition: all 0.15s ease;
+        }
+
+        .btn-block:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 0 0 rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-block:active {
+            transform: translateY(2px);
+            box-shadow: 0 1px 0 0 rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-orange { background-color: var(--color-orange-accent); color: #FFF; }
+        .btn-blue { background-color: var(--color-primary-blue); color: #FFF; }
+        .btn-yellow { background-color: var(--color-yellow-accent); color: var(--text-dark); }
+        .btn-purple { background-color: var(--color-purple-accent); color: #FFF; }
+
+        /* SECCIONES Y ENCABEZADOS */
+        .section-padding {
+            padding: 4.5rem 0;
+        }
+
+        .section-header {
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto 3rem auto;
+        }
+
+        .section-tag {
+            display: inline-block;
+            padding: 0.3rem 0.8rem;
+            background-color: #E0F2FE;
+            color: var(--color-sky-blue);
+            border-radius: 2rem;
+            font-size: 0.8rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            margin-bottom: 0.75rem;
+        }
+
+        .section-title {
+            font-size: 2.25rem;
+            font-weight: 900;
+            letter-spacing: -0.5px;
+            color: var(--text-dark);
+            margin-bottom: 0.5rem;
+        }
+
+        .section-subtitle {
+            font-size: 1rem;
+            color: var(--text-muted);
+        }
+
+        /* BANNER SUPERIOR PROMO */
+        .top-announcement {
+            background: linear-gradient(90deg, var(--color-yellow-accent), #FBBF24, var(--color-orange-accent));
+            color: #0F172A;
+            text-align: center;
+            padding: 0.5rem 1rem;
+            font-weight: 800;
+            font-size: 0.85rem;
+            letter-spacing: 0.5px;
+        }
+
+        /* ==========================================================================
+           BLOQUE 1: HEADER / NAVEGACIÓN
+           ========================================================================== */
+        .site-header {
+            background-color: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(8px);
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-wrap {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 80px;
+        }
+
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-decoration: none;
+        }
+
+        .logo-placeholder-box {
+            width: 48px;
+            height: 48px;
+            border: 2px dashed var(--color-yellow-accent);
+            background-color: var(--color-primary-blue);
+            color: #FFF;
+            border-radius: 0.75rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 700;
+            font-size: 0.9rem;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: var(--color-sky-blue);
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .icon-btn {
+            background: none;
+            border: none;
+            font-size: 1.1rem;
+            color: var(--text-dark);
+            cursor: pointer;
+            padding: 0.5rem;
+            border-radius: 50%;
+            transition: background 0.2s;
+        }
+
+        .icon-btn:hover {
+            background-color: #F1F5F9;
+        }
+
+        /* ==========================================================================
+           BLOQUE 2: HERO SECTION
+           ========================================================================== */
+        .hero-section {
+            padding: 4rem 0;
+            background: linear-gradient(180deg, #F0F9FF 0%, #FFFFFF 100%);
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .hero-content h1 {
+            font-size: 3.25rem;
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 1rem;
+        }
+
+        .hero-content h1 .highlight {
+            color: var(--color-sky-blue);
+        }
+
+        .hero-tagline {
+            font-size: 1.35rem;
+            font-weight: 800;
+            color: var(--text-dark);
+            margin-bottom: 1rem;
+        }
+
+        .hero-description {
+            font-size: 1rem;
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+            max-width: 600px;
+        }
+
+        .hero-ctas {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        /* ==========================================================================
+           BLOQUE 3: EL PROBLEMA ("Why Is English So Hard?")
+           ========================================================================== */
+        .problem-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .problem-card {
+            background-color: var(--bg-card);
+            border: 2px solid var(--border-color);
+            border-radius: 1.25rem;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .problem-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.25rem auto;
+            font-size: 1.5rem;
+            color: #FFF;
+        }
+
+        .solution-banner {
+            background: linear-gradient(90deg, var(--color-primary-blue), var(--color-sky-blue));
+            color: #FFF;
+            border-radius: 1.5rem;
+            padding: 2.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        /* ==========================================================================
+           BLOQUE 4: CORE MACHINE MODULES (MATRIZ INTERACTIVA)
+           ========================================================================== */
+        .modules-section {
+            background-color: #F1F5F9;
+        }
+
+        .modules-palette {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .module-chip {
+            padding: 0.75rem 0.5rem;
+            border-radius: 0.75rem;
+            text-align: center;
+            color: #FFF;
+            font-weight: 800;
+            border: 2px solid rgba(0,0,0,0.2);
+            cursor: pointer;
+            box-shadow: 0 4px 0 rgba(0,0,0,0.2);
+            transition: all 0.2s;
+            user-select: none;
+        }
+
+        .module-chip:active {
+            transform: translateY(2px);
+            box-shadow: 0 1px 0 rgba(0,0,0,0.2);
+        }
+
+        .module-chip.disabled {
+            opacity: 0.35;
+            filter: grayscale(80%);
+        }
+
+        .chip-code { font-size: 0.75rem; opacity: 0.8; display: block; }
+        .chip-name { font-size: 0.85rem; display: block; }
+
+        /* Colores específicos de cada bloque */
+        .mod-s { background-color: var(--color-sky-blue); }
+        .mod-aux { background-color: var(--color-green-accent); }
+        .mod-frq { background-color: var(--color-yellow-accent); color: var(--text-dark); }
+        .mod-v { background-color: var(--color-red-accent); }
+        .mod-obj { background-color: var(--color-purple-accent); }
+        .mod-desc { background-color: var(--color-orange-accent); }
+        .mod-pirry { background-color: var(--color-pink-accent); }
+        .mod-time { background-color: #6366F1; }
+        .mod-why { background-color: var(--color-teal-accent); }
+        .mod-bridge { background-color: #475569; }
+
+        /* Visualizador de la Oración Ensamblada */
+        .builder-workspace {
+            background-color: #FFF;
+            border: 2px solid var(--border-color);
+            border-radius: 1.5rem;
+            padding: 2rem;
+            box-shadow: 0 10px 25px -5px rgba(0,0,0,0.05);
+        }
+
+        .sentence-preview-area {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            min-height: 90px;
+            padding: 1.25rem;
+            background-color: #F8FAFC;
+            border: 2px dashed #CBD5E1;
+            border-radius: 1rem;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .active-word-block {
+            padding: 0.6rem 1rem;
+            border-radius: 0.75rem;
+            color: #FFF;
+            font-weight: 800;
+            font-size: 0.95rem;
+            display: flex;
+            flex-direction: column;
+            border: 2px solid rgba(0,0,0,0.2);
+            box-shadow: 0 3px 0 rgba(0,0,0,0.2);
+        }
+
+        .active-word-block .block-type {
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            opacity: 0.85;
+        }
+
+        .output-box {
+            background-color: #0F172A;
+            color: #FFF;
+            padding: 1.5rem;
+            border-radius: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        /* ==========================================================================
+           BLOQUE 5: PERSONAJES (MEET THE CHARACTERS)
+           ========================================================================== */
+        .characters-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .character-card {
+            background-color: var(--bg-card);
+            border: 2px solid var(--border-color);
+            border-radius: 1.25rem;
+            padding: 2rem 1.5rem;
+            text-align: center;
+            transition: transform 0.2s;
+        }
+
+        .character-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .character-role-tag {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 1rem;
+            font-size: 0.75rem;
+            font-weight: 800;
+            color: #FFF;
+            margin-bottom: 0.75rem;
+        }
+
+        /* ==========================================================================
+           BLOQUE 6: JUEGO DE MESA (THE BOARD GAME)
+           ========================================================================== */
+        .boardgame-section {
+            background: linear-gradient(135deg, #0F172A 0%, #1E3A8A 100%);
+            color: #FFF;
+        }
+
+        .boardgame-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .check-list {
+            list-style: none;
+            margin: 1.5rem 0;
+        }
+
+        .check-list li {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 0.75rem;
+            font-size: 0.95rem;
+            color: #E2E8F0;
+        }
+
+        .check-list i {
+            color: var(--color-green-accent);
+        }
+
+        /* ==========================================================================
+           BLOQUE 7: RECURSOS DESCARGABLES
+           ========================================================================== */
+        .resources-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .resource-card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        /* ==========================================================================
+           BLOQUE 8: COMUNIDAD
+           ========================================================================== */
+        .community-section {
+            background-color: #F8FAFC;
+        }
+
+        .community-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .community-item {
+            background: #FFF;
+            padding: 1.5rem;
+            border-radius: 1rem;
+            border: 1px solid var(--border-color);
+            text-align: center;
+        }
+
+        /* ==========================================================================
+           BLOQUE 9: LA HISTORIA (TIMELINE)
+           ========================================================================== */
+        .timeline-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 1rem;
+        }
+
+        .timeline-step {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 1rem;
+            padding: 1.5rem 1rem;
+            text-align: center;
+            position: relative;
+        }
+
+        .step-number {
+            width: 32px;
+            height: 32px;
+            background-color: var(--color-primary-blue);
+            color: #FFF;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            margin: 0 auto 0.75rem auto;
+            font-size: 0.85rem;
+        }
+
+        /* ==========================================================================
+           BLOQUE 10 & 11: NEWSLETTER & FOOTER
+           ========================================================================== */
+        .cta-newsletter {
+            background-color: var(--color-primary-blue);
+            color: #FFF;
+            border-radius: 2rem;
+            padding: 3.5rem 2rem;
+            text-align: center;
+        }
+
+        .newsletter-form {
+            display: flex;
+            gap: 0.75rem;
+            max-width: 500px;
+            margin: 1.5rem auto 0 auto;
+        }
+
+        .newsletter-form input {
+            flex: 1;
+            padding: 0.85rem 1.25rem;
+            border-radius: 0.75rem;
+            border: none;
+            outline: none;
+            font-size: 0.95rem;
+        }
+
+        .site-footer {
+            background-color: #0F172A;
+            color: #94A3B8;
+            padding: 3rem 0 1.5rem 0;
+            font-size: 0.85rem;
+        }
+
+        .footer-wrap {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid #1E293B;
+        }
+
+        /* MEDIA QUERIES (RESPONSIVO PARA MÓVILES) */
+        @media (max-width: 900px) {
+            .hero-grid, .boardgame-grid {
+                grid-template-columns: 1fr;
+            }
+            .hero-content h1 {
+                font-size: 2.25rem;
+            }
+            .nav-links {
+                display: none; /* Simplificado para demo framework */
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ==========================================================================
+         ANUNCIO / BANNER SUPERIOR
+         ========================================================================== -->
+    <div class="top-announcement">
+        <i class="fa-solid fa-trophy"></i> TURN GRAMMAR INTO A GAME • TURN LEARNING INTO AN ADVENTURE!
+    </div>
+
+    <!-- ==========================================================================
+         BLOQUE 1: HEADER / NAVEGACIÓN
+         ========================================================================== -->
+    <!-- LAYER 1: HEADER -->
+    <header class="site-header">
+        <div class="container header-wrap">
+            
+            <!-- STEP 1.1: LOGOTIPO (PUEDES REEMPLAZAR EL PLACEHOLDING POR TU IMAGEN DE LOGO) -->
+            <a href="#" class="logo-area">
+                <!-- 📸 SUBE AQUÍ TU LOGO: Reemplaza este div por <img src="tu-logo.png" alt="Logo" style="height:48px;"> -->
+                <div class="logo-placeholder-box">
+                    <i class="fa-solid fa-cubes"></i>
+                </div>
+                <div>
+                    <div style="font-weight: 900; line-height: 1; font-size: 1.1rem; color: #0F172A;">THE ENGLISH</div>
+                    <div style="font-weight: 900; line-height: 1; font-size: 0.95rem; color: var(--color-sky-blue);">BUILDER MACHINE™</div>
+                </div>
+            </a>
+
+            <!-- ENLACES DE NAVEGACIÓN -->
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#method">The Method</a></li>
+                    <li><a href="#boardgame">Board Game</a></li>
+                    <li><a href="#resources">Resources</a></li>
+                    <li><a href="#community">Community</a></li>
+                    <li><a href="#story">Story</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+
+            <!-- ACCIONES RAPIDAS -->
+            <div class="header-actions">
+                <button class="icon-btn" title="Buscar"><i class="fa-solid fa-magnifying-glass"></i></button>
+                <button class="icon-btn" title="Carrito"><i class="fa-solid fa-cart-shopping"></i></button>
+            </div>
+        </div>
+    </header>
+
+
+    <!-- ==========================================================================
+         BLOQUE 2: HERO SECTION
+         ========================================================================== -->
+    <!-- LAYER 2: HERO SECTION -->
+    <section id="home" class="hero-section">
+        <div class="container hero-grid">
+            
+            <!-- TEXTOS PRINCIPALES DEL HERO -->
+            <div class="hero-content">
+                <span class="section-tag"><i class="fa-solid fa-puzzle-piece"></i> Visual Learning System</span>
+                <h1>The English <br><span class="highlight">Builder Machine™</span></h1>
+                <p class="hero-tagline">Build English. Understand English. Think in English.</p>
+                <p class="hero-description">
+                    A visual English learning system that helps students build, understand, and practice English using modular sentence blocks, educational characters, interactive infographics, and The English Master Board Game™.
+                </p>
+
+                <div class="hero-ctas">
+                    <a href="#method" class="btn-block btn-orange">
+                        <i class="fa-solid fa-compass"></i> Explore the System
+                    </a>
+                    <a href="#boardgame" class="btn-block btn-blue">
+                        <i class="fa-solid fa-dice"></i> The Board Game
+                    </a>
+                </div>
+            </div>
+
+            <!-- STEP 2.1: MARCO PARA IMAGEN O ILUSTRACIÓN DEL HERO (TORRE / BUILDER) -->
+            <div class="hero-media">
+                <!-- 📸 SUBE AQUÍ TU IMAGEN DEL HERO (Ej: The Builder con la Torre de Bloques) -->
+                <div class="image-placeholder" style="min-height: 380px;">
+                    <i class="fa-solid fa-layer-group"></i>
+                    <span class="placeholder-label">📸 SUBE AQUÍ TU ILUSTRACIÓN HERO</span>
+                    <span class="placeholder-hint">Recomendado: PNG Transparente o JPG (800x800px)<br>Ejemplo: "The Builder armando la torre BUILD, IDEAS, GRAMMAR, CONFIDENCE..."</span>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+
+    <!-- ==========================================================================
+         BLOQUE 3: EL PROBLEMA ("Why Is English So Hard?")
+         ========================================================================== -->
+    <!-- LAYER 3: THE PROBLEM -->
+    <section class="section-padding" style="background-color: #FFF;">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Why Is English So Hard?</h2>
+                <p class="section-subtitle">Traditional learning methods overwhelm students with confusing grammar rules.</p>
+            </div>
+
+            <div class="problem-grid">
+                <!-- CARD 1 -->
+                <div class="problem-card">
+                    <div class="problem-icon" style="background-color: var(--color-red-accent);">
+                        <i class="fa-solid fa-book-bookmark"></i>
+                    </div>
+                    <h3>Too Many Rules</h3>
+                    <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.5rem;">Abstract grammar charts that are hard to memorize and apply in real speech.</p>
+                </div>
+
+                <!-- CARD 2 -->
+                <div class="problem-card">
+                    <div class="problem-icon" style="background-color: var(--color-orange-accent);">
+                        <i class="fa-solid fa-brain"></i>
+                    </div>
+                    <h3>Too Much Memorization</h3>
+                    <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.5rem;">Rote learning causes mental exhaustion and translation bottlenecks.</p>
+                </div>
+
+                <!-- CARD 3 -->
+                <div class="problem-card">
+                    <div class="problem-icon" style="background-color: var(--color-yellow-accent); color: #0F172A;">
+                        <i class="fa-solid fa-triangle-exclamation"></i>
+                    </div>
+                    <h3>Too Many Exceptions</h3>
+                    <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.5rem;">Unpredictable sentence structures lead to fear of making mistakes.</p>
+                </div>
+            </div>
+
+            <!-- SOLUCIÓN / PARADIGMA -->
+            <div class="solution-banner">
+                <div>
+                    <span style="color: var(--color-yellow-accent); font-weight: 800; text-transform: uppercase; font-size: 0.8rem;">The Solution</span>
+                    <h3 style="font-size: 1.75rem; font-weight: 900; margin-top: 0.2rem;">What if English could be BUILT instead?</h3>
+                    <p style="font-size: 0.9rem; opacity: 0.9;">Constructing sentences with tactile visual blocks makes fluency structured and intuitive.</p>
+                </div>
+                <a href="#method" class="btn-block btn-yellow">
+                    Discover How <i class="fa-solid fa-arrow-right"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ==========================================================================
+         BLOQUE 4: CORE MACHINE MODULES (SISTEMA INTERACTIVO DE BLOQUES)
+         ========================================================================== -->
+    <!-- LAYER 4: CORE MACHINE MODULES -->
+    <section id="method" class="section-padding modules-section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag"><i class="fa-solid fa-sliders"></i> Interactive Engine</span>
+                <h2 class="section-title">Core Machine Modules</h2>
+                <p class="section-subtitle">Haz clic en los bloques para activar o desactivar componentes y ver la oración armada abajo.</p>
+            </div>
+
+            <!-- PALETA DE BLOQUES CONMUTABLES (10 MÓDULOS) -->
+            <div class="modules-palette">
+                <!-- 1. SUBJECT -->
+                <div class="module-chip mod-s" onclick="toggleBlock('subject')">
+                    <span class="chip-code">S</span>
+                    <span class="chip-name">Subject</span>
+                </div>
+                <!-- 2. HELPER (AUX) -->
+                <div class="module-chip mod-aux" onclick="toggleBlock('aux')">
+                    <span class="chip-code">AUX</span>
+                    <span class="chip-name">Helper</span>
+                </div>
+                <!-- 3. FREQUENCY -->
+                <div class="module-chip mod-frq" onclick="toggleBlock('frq')">
+                    <span class="chip-code">FRQ</span>
+                    <span class="chip-name">Frequency</span>
+                </div>
+                <!-- 4. VERB -->
+                <div class="module-chip mod-v" onclick="toggleBlock('verb')">
+                    <span class="chip-code">V</span>
+                    <span class="chip-name">Verb</span>
+                </div>
+                <!-- 5. OBJECT -->
+                <div class="module-chip mod-obj" onclick="toggleBlock('object')">
+                    <span class="chip-code">OD/ID</span>
+                    <span class="chip-name">Object</span>
+                </div>
+                <!-- 6. DESCRIPTORS -->
+                <div class="module-chip mod-desc" onclick="toggleBlock('descriptors')">
+                    <span class="chip-code">OSASCOM</span>
+                    <span class="chip-name">Descriptors</span>
+                </div>
+                <!-- 7. PIRRY'S -->
+                <div class="module-chip mod-pirry" onclick="toggleBlock('questions')">
+                    <span class="chip-code">PIRRY'S</span>
+                    <span class="chip-name">Questions</span>
+                </div>
+                <!-- 8. TIMMY -->
+                <div class="module-chip mod-time" onclick="toggleBlock('time')">
+                    <span class="chip-code">TIMMY</span>
+                    <span class="chip-name">Time</span>
+                </div>
+                <!-- 9. PURPOSE -->
+                <div class="module-chip mod-why" onclick="toggleBlock('purpose')">
+                    <span class="chip-code">WHY?</span>
+                    <span class="chip-name">Purpose</span>
+                </div>
+                <!-- 10. BRIDGE -->
+                <div class="module-chip mod-bridge" onclick="toggleBlock('bridge')">
+                    <span class="chip-code">BRIDGE</span>
+                    <span class="chip-name">Connectors</span>
+                </div>
+            </div>
+
+            <!-- ESPACIO DE TRABAJO Y VISTA PREVIA INTERACTIVA -->
+            <div class="builder-workspace">
+                <div style="margin-bottom: 1rem; font-weight: 800; font-size: 0.9rem; color: var(--text-dark);">
+                    <i class="fa-solid fa-cubes"></i> Active Sentence Modules:
+                </div>
+
+                <!-- CONTENEDOR DONDE SE RENDERIZAN LOS BLOQUES ACTIVOS -->
+                <div class="sentence-preview-area" id="activeBlocksContainer">
+                    <!-- Los bloques se inyectan dinámicamente mediante JavaScript -->
+                </div>
+
+                <!-- RESULTADO DE LA ORACIÓN FINAL -->
+                <div class="output-box">
+                    <div>
+                        <span style="font-size: 0.75rem; color: var(--color-yellow-accent); font-weight: 800; text-transform: uppercase;">
+                            <i class="fa-solid fa-circle-check"></i> Assembled English Sentence:
+                        </span>
+                        <div id="assembledText" style="font-size: 1.5rem; font-weight: 900; margin-top: 0.25rem;">
+                            "She can always speak English fluently every day."
+                        </div>
+                    </div>
+                    <button class="btn-block btn-yellow" onclick="readSentence()">
+                        <i class="fa-solid fa-volume-high"></i> Listen
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+
+    <!-- ==========================================================================
+         BLOQUE 5: PERSONAJES (MEET THE CHARACTERS)
+         ========================================================================== -->
+    <!-- LAYER 5: MEET THE CHARACTERS -->
+    <section class="section-padding" style="background-color: #FFF;">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag"><i class="fa-solid fa-users"></i> Educational Guides</span>
+                <h2 class="section-title">Meet the Characters</h2>
+                <p class="section-subtitle">Personajes diseñados para hacer fácil e intuitiva la función de cada bloque gramatical.</p>
+            </div>
+
+            <div class="characters-grid">
+                
+                <!-- PERSONAJE 1: THE BUILDER -->
+                <div class="character-card">
+                    <!-- 📸 STEP 5.1: AVATAR THE BUILDER -->
+                    <div class="avatar-placeholder">
+                        <i class="fa-solid fa-user-astronaut" style="font-size: 2.5rem;"></i>
+                    </div>
+                    <!-- REEMPLAZA POR: <img src="builder-avatar.png" alt="The Builder" class="avatar-img"> -->
+                    
+                    <span class="character-role-tag" style="background-color: var(--color-sky-blue);">Subject Foundation</span>
+                    <h3 style="font-weight: 900;">The Builder</h3>
+                    <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 0.5rem;">
+                        Representa el sujeto (Subject). Construye la base sobre la cual se sostiene toda la oración.
+                    </p>
+                </div>
+
+                <!-- PERSONAJE 2: HELPER -->
+                <div class="character-card">
+                    <!-- 📸 STEP 5.2: AVATAR HELPER -->
+                    <div class="avatar-placeholder" style="border-color: var(--color-green-accent); color: var(--color-green-accent); background-color: #ECFDF5;">
+                        <i class="fa-solid fa-robot" style="font-size: 2.5rem;"></i>
+                    </div>
+                    <!-- REEMPLAZA POR: <img src="helper-avatar.png" alt="Helper" class="avatar-img"> -->
+
+                    <span class="character-role-tag" style="background-color: var(--color-green-accent);">Auxiliary Verbs</span>
+                    <h3 style="font-weight: 900;">Helper</h3>
+                    <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 0.5rem;">
+                        Apoya la estructura con verbos auxiliares (do, does, did, can, will) para dar precisión.
+                    </p>
+                </div>
+
+                <!-- PERSONAJE 3: PIRRY'S EXPLORER -->
+                <div class="character-card">
+                    <!-- 📸 STEP 5.3: AVATAR PIRRY'S -->
+                    <div class="avatar-placeholder" style="border-color: var(--color-pink-accent); color: var(--color-pink-accent); background-color: #FDF2F8;">
+                        <i class="fa-solid fa-compass" style="font-size: 2.5rem;"></i>
+                    </div>
+                    <!-- REEMPLAZA POR: <img src="pirry-avatar.png" alt="Pirry Explorer" class="avatar-img"> -->
+
+                    <span class="character-role-tag" style="background-color: var(--color-pink-accent);">Questions & Discovery</span>
+                    <h3 style="font-weight: 900;">Pirry's Explorer</h3>
+                    <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 0.5rem;">
+                        Guía la formulación de preguntas (Wh- questions) y promueve el descubrimiento activo.
+                    </p>
+                </div>
+
+                <!-- PERSONAJE 4: TIME MIRROR -->
+                <div class="character-card">
+                    <!-- 📸 STEP 5.4: AVATAR TIME MIRROR -->
+                    <div class="avatar-placeholder" style="border-color: #6366F1; color: #6366F1; background-color: #EEF2FF;">
+                        <i class="fa-solid fa-clock-rotate-left" style="font-size: 2.5rem;"></i>
+                    </div>
+                    <!-- REEMPLAZA POR: <img src="time-mirror-avatar.png" alt="Time Mirror" class="avatar-img"> -->
+
+                    <span class="character-role-tag" style="background-color: #6366F1;">Tense & Timeline</span>
+                    <h3 style="font-weight: 900;">Time Mirror</h3>
+                    <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 0.5rem;">
+                        Refleja la línea del tiempo y muestra con exactitud cuándo ocurre la acción.
+                    </p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ==========================================================================
+         BLOQUE 6: JUEGO DE MESA (THE BOARD GAME)
+         ========================================================================== -->
+    <!-- LAYER 6: THE BOARD GAME -->
+    <section id="boardgame" class="section-padding boardgame-section">
+        <div class="container boardgame-grid">
+            
+            <!-- INFORMACIÓN Y DETALLES DEL JUEGO -->
+            <div>
+                <span style="color: var(--color-yellow-accent); font-weight: 800; font-size: 0.8rem; text-transform: uppercase;">
+                    <i class="fa-solid fa-dice"></i> Physical Learning Tool
+                </span>
+                <h2 style="font-size: 2.5rem; font-weight: 900; margin-top: 0.5rem; line-height: 1.1;">
+                    The English Master <br><span style="color: var(--color-yellow-accent);">Board Game</span>
+                </h2>
+                <p style="margin-top: 1rem; color: #93C5FD; font-size: 1.1rem; font-weight: 700;">
+                    Learn English through play! Roll. Build. Practice. Win.
+                </p>
+
+                <ul class="check-list">
+                    <li><i class="fa-solid fa-circle-check"></i> Physical board game with color-coded modular tiles</li>
+                    <li><i class="fa-solid fa-circle-check"></i> Educational, fun, and competitive for classrooms & families</li>
+                    <li><i class="fa-solid fa-circle-check"></i> Develops real English speaking skills step by step</li>
+                </ul>
+
+                <button class="btn-block btn-yellow" style="margin-top: 1rem;">
+                    Learn More / Pre-Order <i class="fa-solid fa-arrow-right"></i>
+                </button>
+            </div>
+
+            <!-- STEP 6.1: MARCO PARA FOTO DE LA CAJA DEL JUEGO DE MESA -->
+            <div>
+                <!-- 📸 SUBE AQUÍ LA FOTO DE TU JUEGO DE MESA (Caja + Tablero) -->
+                <div class="image-placeholder" style="min-height: 350px; background-color: rgba(255,255,255,0.05); border-color: var(--color-yellow-accent); color: #FFF;">
+                    <i class="fa-solid fa-box-open" style="font-size: 3.5rem; color: var(--color-yellow-accent);"></i>
+                    <span class="placeholder-label" style="color: #FFF;">📸 SUBE AQUÍ LA FOTO DEL JUEGO DE MESA</span>
+                    <span class="placeholder-hint" style="color: #93C5FD;">Recomendado: Foto con fondo transparente o render 3D de la caja y piezas</span>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+
+    <!-- ==========================================================================
+         BLOQUE 7: RECURSOS DESCARGABLES
+         ========================================================================== -->
+    <!-- LAYER 7: RESOURCES -->
+    <section id="resources" class="section-padding" style="background-color: #FFF;">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag"><i class="fa-solid fa-download"></i> Downloads</span>
+                <h2 class="section-title">Resources</h2>
+                <p class="section-subtitle">Descarga guías visuales, flashcards y hojas de práctica.</p>
+            </div>
+
+            <div class="resources-grid">
+                <!-- RECURSO 1: INFOGRAFIAS -->
+                <div class="resource-card">
+                    <i class="fa-solid fa-file-image" style="font-size: 2rem; color: var(--color-sky-blue); margin-bottom: 0.75rem;"></i>
+                    <h4 style="font-weight: 800;">Infographics</h4>
+                    <p style="font-size: 0.75rem; color: var(--text-muted); margin: 0.5rem 0 1rem 0;">Visual grammar maps and matrix guides.</p>
+                    <button class="btn-block btn-blue" style="width: 100%; font-size: 0.8rem; padding: 0.5rem;">Download PDF</button>
+                </div>
+
+                <!-- RECURSO 2: POSTERS -->
+                <div class="resource-card">
+                    <i class="fa-solid fa-map" style="font-size: 2rem; color: var(--color-yellow-accent); margin-bottom: 0.75rem;"></i>
+                    <h4 style="font-weight: 800;">Posters</h4>
+                    <p style="font-size: 0.75rem; color: var(--text-muted); margin: 0.5rem 0 1rem 0;">Classroom charts with all character modules.</p>
+                    <button class="btn-block btn-blue" style="width: 100%; font-size: 0.8rem; padding: 0.5rem;">Download PDF</button>
+                </div>
+
+                <!-- RECURSO 3: WORKSHEETS -->
+                <div class="resource-card">
+                    <i class="fa-solid fa-file-pen" style="font-size: 2rem; color: var(--color-green-accent); margin-bottom: 0.75rem;"></i>
+                    <h4 style="font-weight: 800;">Worksheets</h4>
+                    <p style="font-size: 0.75rem; color: var(--text-muted); margin: 0.5rem 0 1rem 0;">Sentence building exercises & challenges.</p>
+                    <button class="btn-block btn-blue" style="width: 100%; font-size: 0.8rem; padding: 0.5rem;">Download PDF</button>
+                </div>
+
+                <!-- RECURSO 4: FLASHCARDS -->
+                <div class="resource-card">
+                    <i class="fa-solid fa-cards-blank" style="font-size: 2rem; color: var(--color-purple-accent); margin-bottom: 0.75rem;"></i>
+                    <h4 style="font-weight: 800;">Flash Cards</h4>
+                    <p style="font-size: 0.75rem; color: var(--text-muted); margin: 0.5rem 0 1rem 0;">Printable vocabulary and auxiliary verb blocks.</p>
+                    <button class="btn-block btn-blue" style="width: 100%; font-size: 0.8rem; padding: 0.5rem;">Download PDF</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ==========================================================================
+         BLOQUE 8: COMUNIDAD
+         ========================================================================== -->
+    <!-- LAYER 8: COMMUNITY -->
+    <section id="community" class="section-padding community-section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag"><i class="fa-solid fa-users"></i> Global Movement</span>
+                <h2 class="section-title">Community</h2>
+                <p class="section-subtitle">Play. Share. Learn. Grow together with builders worldwide.</p>
+            </div>
+
+            <div class="community-grid">
+                <div class="community-item">
+                    <i class="fa-solid fa-video" style="font-size: 1.75rem; color: var(--color-red-accent); margin-bottom: 0.5rem;"></i>
+                    <h4 style="font-weight: 800;">Video Challenges</h4>
+                </div>
+                <div class="community-item">
+                    <i class="fa-solid fa-award" style="font-size: 1.75rem; color: var(--color-yellow-accent); margin-bottom: 0.5rem;"></i>
+                    <h4 style="font-weight: 800;">Builder Awards</h4>
+                </div>
+                <div class="community-item">
+                    <i class="fa-solid fa-star" style="font-size: 1.75rem; color: var(--color-orange-accent); margin-bottom: 0.5rem;"></i>
+                    <h4 style="font-weight: 800;">Hall of Fame</h4>
+                </div>
+                <div class="community-item">
+                    <i class="fa-solid fa-heart" style="font-size: 1.75rem; color: var(--color-pink-accent); margin-bottom: 0.5rem;"></i>
+                    <h4 style="font-weight: 800;">Student Stories</h4>
+                </div>
+            </div>
+
+            <div style="text-align: center;">
+                <button class="btn-block btn-purple">
+                    <i class="fa-solid fa-user-plus"></i> Join the Community
+                </button>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ==========================================================================
+         BLOQUE 9: LA HISTORIA (TIMELINE)
+         ========================================================================== -->
+    <!-- LAYER 9: THE STORY -->
+    <section id="story" class="section-padding" style="background-color: #FFF;">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">The Story</h2>
+                <p class="section-subtitle">From an idea to a global educational movement.</p>
+            </div>
+
+            <div class="timeline-grid">
+                <div class="timeline-step">
+                    <div class="step-number">1</div>
+                    <h4 style="font-weight: 800; font-size: 0.9rem;">The Challenge</h4>
+                    <p style="font-size: 0.75rem; color: var(--text-muted); margin-top: 0.3rem;">English felt difficult and rule-heavy.</p>
+                </div>
+                <div class="timeline-step">
+                    <div class="step-number">2</div>
+                    <h4 style="font-weight: 800; font-size: 0.9rem;">The Idea</h4>
+                    <p style="font-size: 0.75rem; color: var(--text-muted); margin-top: 0.3rem;">Visual learning with modular blocks.</p>
+                </div>
+                <div class="timeline-step">
+                    <div class="step-number">3</div>
+                    <h4 style="font-weight: 800; font-size: 0.9rem;">Development</h4>
+                    <p style="font-size: 0.75rem; color: var(--text-muted); margin-top: 0.3rem;">Spreadsheets and early prototypes.</p>
+                </div>
+                <div class="timeline-step">
+                    <div class="step-number">4</div>
+                    <h4 style="font-weight: 800; font-size: 0.9rem;">The Board Game</h4>
+                    <p style="font-size: 0.75rem; color: var(--text-muted); margin-top: 0.3rem;">A physical new way to play and learn.</p>
+                </div>
+                <div class="timeline-step">
+                    <div class="step-number">5</div>
+                    <h4 style="font-weight: 800; font-size: 0.9rem;">Today</h4>
+                    <p style="font-size: 0.75rem; color: var(--text-muted); margin-top: 0.3rem;">A growing global community.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ==========================================================================
+         BLOQUE 10: SUSCRIPCIÓN & FINAL CTA
+         ========================================================================== -->
+    <!-- LAYER 10: FINAL SECTION & NEWSLETTER -->
+    <section class="section-padding" style="background-color: var(--bg-light);">
+        <div class="container">
+            <div class="cta-newsletter">
+                <h2 style="font-size: 2.25rem; font-weight: 900;">The English Builder Machine™ is Growing</h2>
+                <p style="margin-top: 0.5rem; opacity: 0.9; font-size: 0.95rem;">
+                    New learning modules, visual resources, educational characters, and game content are added regularly.
+                </p>
+
+                <form class="newsletter-form" onsubmit="event.preventDefault(); alert('Subscripted successfully!');">
+                    <input type="email" placeholder="Enter your email address" required>
+                    <button type="submit" class="btn-block btn-yellow">Subscribe</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ==========================================================================
+         BLOQUE 11: FOOTER
+         ========================================================================== -->
+    <!-- LAYER 11: FOOTER -->
+    <footer id="contact" class="site-footer">
+        <div class="container">
+            <div class="footer-wrap">
+                <div style="font-weight: 900; color: #FFF; font-size: 1.1rem;">
+                    <i class="fa-solid fa-cubes" style="color: var(--color-yellow-accent);"></i> The English Builder Machine™
+                </div>
+
+                <div style="display: flex; gap: 1rem;">
+                    <a href="#" style="color: #94A3B8;"><i class="fa-brands fa-youtube"></i></a>
+                    <a href="#" style="color: #94A3B8;"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#" style="color: #94A3B8;"><i class="fa-brands fa-facebook"></i></a>
+                </div>
+            </div>
+
+            <div style="margin-top: 1.5rem; text-align: center; font-size: 0.75rem; color: #64748B;">
+                Build English. Understand English. Think in English.<br>
+                © 2026 The English Builder Machine™. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+
+    <!-- ==========================================================================
+         LÓGICA JAVASCRIPT DE LA MATRIZ INTERACTIVA (BLOQUE 4)
+         ========================================================================== -->
+    <script>
+        // Datos y estado de los 10 módulos gramaticales
+        const modulesData = {
+            questions: { code: 'PIRRY\'S', name: 'Questions', text: 'Why', bgClass: 'mod-pirry', active: false },
+            subject: { code: 'S', name: 'Subject', text: 'She', bgClass: 'mod-s', active: true },
+            aux: { code: 'AUX', name: 'Helper', text: 'can', bgClass: 'mod-aux', active: true },
+            frq: { code: 'FRQ', name: 'Frequency', text: 'always', bgClass: 'mod-frq', active: true },
+            verb: { code: 'V', name: 'Verb', text: 'speak', bgClass: 'mod-v', active: true },
+            object: { code: 'OD/ID', name: 'Object', text: 'English', bgClass: 'mod-obj', active: true },
+            descriptors: { code: 'OSASCOM', name: 'Descriptors', text: 'fluently', bgClass: 'mod-desc', active: true },
+            time: { code: 'TIMMY', name: 'Time', text: 'every day', bgClass: 'mod-time', active: true },
+            purpose: { code: 'WHY?', name: 'Purpose', text: 'to connect with people', bgClass: 'mod-why', active: false },
+            bridge: { code: 'BRIDGE', name: 'Connector', text: 'and', bgClass: 'mod-bridge', active: false }
+        };
+
+        // Orden estándar para ensamblar la oración
+        const renderOrder = ['questions', 'subject', 'aux', 'frq', 'verb', 'object', 'descriptors', 'time', 'purpose', 'bridge'];
+
+        // Función para activar / desactivar bloques
+        function toggleBlock(key) {
+            if (modulesData[key]) {
+                modulesData[key].active = !modulesData[key].active;
+                updateBuilderUI();
+            }
+        }
+
+        // Renderizar interfaz del creador
+        function updateBuilderUI() {
+            const container = document.getElementById('activeBlocksContainer');
+            container.innerHTML = '';
+            let activeWords = [];
+
+            renderOrder.forEach(key => {
+                const item = modulesData[key];
+                if (item.active) {
+                    activeWords.push(item.text);
+
+                    // Crear bloque visual activo
+                    const block = document.createElement('div');
+                    block.className = `active-word-block ${item.bgClass}`;
+                    block.innerHTML = `
+                        <span class="block-type">${item.code} (${item.name})</span>
+                        <span>${item.text}</span>
+                    `;
+                    container.appendChild(block);
+                }
+            });
+
+            // Actualizar texto compilado
+            const outputText = document.getElementById('assembledText');
+            if (activeWords.length > 0) {
+                outputText.innerText = `"${activeWords.join(' ')}."`;
+            } else {
+                outputText.innerText = '"[Haz clic en los módulos superiores para construir la oración]"';
+            }
+        }
+
+        // Pronunciación mediante API de voz del navegador
+        function readSentence() {
+            const text = document.getElementById('assembledText').innerText.replace(/"/g, '');
+            if ('speechSynthesis' in window && text) {
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.lang = 'en-US';
+                window.speechSynthesis.speak(utterance);
+            }
+        }
+
+        // Inicializar interfaz al cargar la página
+        window.onload = function() {
+            updateBuilderUI();
+        };
+    </script>
+</body>
+</html>
