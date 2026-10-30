@@ -1,0 +1,1070 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The English Builder Machine™ — Fully Alive Engine with Formulas</title>
+    <style>
+        :root {
+            --primary-blue: #0284c7;
+            --primary-dark: #0f172a;
+            --accent-green: #16a34a;
+            --accent-yellow: #f59e0b;
+            --bg-light: #f8fafc;
+            --border-color: #cbd5e1;
+            
+            --b-subject: #0284c7;
+            --b-aux: #f59e0b;
+            --b-frq: #8b5cf6;
+            --b-verb: #ef4444;
+            --b-object: #16a34a;
+            --b-manner: #f97316;
+            --b-place: #78350f;
+            --b-time: #1e293b;
+            --b-reason: #38bdf8;
+            --b-bridge: #0891b2;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', sans-serif; }
+        body { background: var(--bg-light); color: var(--primary-dark); padding: 20px; }
+
+        .console-container {
+            max-width: 1280px;
+            margin: 0 auto;
+            background: #ffffff;
+            border: 2px solid var(--primary-blue);
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .console-header {
+            background: var(--primary-dark);
+            color: #fff;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: bold;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .action-btn {
+            background: #f59e0b;
+            color: #fff;
+            border: none;
+            padding: 6px 14px;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.2s;
+            font-size: 12px;
+        }
+        .action-btn:hover { background: #d97706; }
+
+        .section-row {
+            padding: 15px 20px;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .label-tag {
+            font-size: 11px;
+            font-weight: 800;
+            color: var(--primary-blue);
+            text-transform: uppercase;
+            width: 140px;
+            flex-shrink: 0;
+            background: #e0f2fe;
+            padding: 6px 10px;
+            border-radius: 6px;
+            text-align: center;
+        }
+
+        .level-tabs, .topic-pills { display: flex; gap: 8px; flex-wrap: wrap; }
+        
+        .pill-btn {
+            padding: 6px 12px;
+            border: 2px solid var(--border-color);
+            border-radius: 20px;
+            background: #fff;
+            font-weight: 600;
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .pill-btn:hover, .pill-btn.active {
+            border-color: var(--primary-blue);
+            background: var(--primary-blue);
+            color: #fff;
+        }
+
+        .select-input {
+            padding: 8px 12px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            font-weight: bold;
+            color: var(--primary-dark);
+            background: #fff;
+            outline: none;
+            cursor: pointer;
+            min-width: 220px;
+        }
+
+        .verb-forms-display {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .form-box {
+            background: #f1f5f9;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 4px 10px;
+            font-size: 11px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-width: 75px;
+        }
+
+        .form-box span {
+            font-size: 9px;
+            font-weight: 800;
+            color: var(--primary-blue);
+            text-transform: uppercase;
+        }
+
+        .form-box strong {
+            font-size: 12px;
+            color: var(--primary-dark);
+        }
+
+        .use-card {
+            background: #f8fafc;
+            border-left: 4px solid var(--primary-blue);
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            color: #334155;
+            flex: 1;
+            min-width: 280px;
+        }
+        .use-card strong { color: var(--primary-blue); }
+
+        .zoom-box {
+            background: #f0fdf4;
+            border: 2px solid var(--accent-green);
+            padding: 15px 20px;
+            border-radius: 10px;
+            width: 100%;
+        }
+        .question-box { font-style: italic; font-weight: 600; color: #334155; font-size: 15px; margin-bottom: 8px; }
+
+        /* PANEL DE FÓRMULAS DINÁMICAS (+, -, ?) */
+        .formula-panel {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            background: #ffffff;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            padding: 10px 14px;
+            margin-top: 8px;
+        }
+
+        .formula-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .formula-badge {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 900;
+            font-size: 13px;
+            flex-shrink: 0;
+        }
+
+        .f-pos { background: #16a34a; }
+        .f-neg { background: #dc2626; }
+        .f-int { background: #d97706; }
+
+        .formula-text {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            padding: 4px 10px;
+            border-radius: 6px;
+            color: #0f172a;
+            font-family: 'Courier New', Courier, monospace;
+            letter-spacing: 0.5px;
+            flex: 1;
+        }
+
+        /* BUILDER BLOCKS */
+        .blocks-assembly {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            width: 100%;
+            margin-top: 5px;
+            align-items: flex-start;
+        }
+
+        .block-unit {
+            padding: 8px;
+            border-radius: 10px;
+            color: white;
+            font-weight: bold;
+            font-size: 11px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.12);
+            transition: transform 0.2s;
+            width: 118px;
+        }
+        .block-unit:hover { transform: translateY(-2px); }
+
+        .block-header-title {
+            width: 100%;
+            text-align: center;
+        }
+
+        .block-unit span.block-tag {
+            background: rgba(0,0,0,0.25);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 9px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            display: inline-block;
+            width: 100%;
+            text-align: center;
+        }
+
+        .center-helper-btn {
+            background: rgba(255, 255, 255, 0.25);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            color: #fff;
+            border-radius: 12px;
+            padding: 2px 8px;
+            font-size: 10px;
+            font-weight: 800;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+            width: 100%;
+            transition: all 0.2s;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+        }
+        .center-helper-btn:hover {
+            background: rgba(255, 255, 255, 0.9);
+            color: #000;
+            transform: scale(1.03);
+        }
+        
+        .block-input {
+            background: #ffffff;
+            border: 1px solid #cbd5e1;
+            border-radius: 4px;
+            padding: 5px 6px;
+            font-size: 11px;
+            font-weight: bold;
+            color: var(--primary-dark);
+            outline: none;
+            width: 100%;
+            text-align: center;
+        }
+        .block-input:focus { border-color: var(--primary-blue); box-shadow: 0 0 0 2px rgba(2,132,199,0.3); }
+
+        .b-s { background: var(--b-subject); }
+        .b-aux { background: var(--b-aux); }
+        .b-frq { background: var(--b-frq); }
+        .b-v { background: var(--b-verb); }
+        .b-o { background: var(--b-object); }
+        .b-m { background: var(--b-manner); }
+        .b-p { background: var(--b-place); }
+        .b-t { background: var(--b-time); }
+        .b-why { background: var(--b-reason); }
+        .b-bridge { background: var(--b-bridge); }
+
+        /* MODALES */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(4px);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-card {
+            background: #fff;
+            border-radius: 16px;
+            padding: 24px;
+            max-width: 500px;
+            width: 90%;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.25);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+        }
+
+        .freq-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            margin-bottom: 15px;
+        }
+
+        .freq-item {
+            padding: 8px 12px;
+            border-radius: 6px;
+            color: #fff;
+            font-weight: bold;
+            font-size: 12px;
+            cursor: pointer;
+            text-align: center;
+            transition: opacity 0.2s;
+        }
+        .freq-item:hover { opacity: 0.85; transform: scale(1.01); }
+    </style>
+</head>
+<body>
+
+<div class="console-container">
+    <div class="console-header">
+        <span>THE ENGLISH BUILDER MACHINE™ — FULLY ALIVE ENGINE WITH FORMULAS</span>
+        <button class="action-btn" onclick="randomizeEverything()">🎲 Nuevo Jugador / Pregunta</button>
+    </div>
+
+    <!-- 1. LEVEL -->
+    <div class="section-row">
+        <div class="label-tag">1. LEVEL</div>
+        <div class="level-tabs" id="levelContainer"></div>
+    </div>
+
+    <!-- 2. TOPIC -->
+    <div class="section-row">
+        <div class="label-tag">2. TOPIC</div>
+        <div class="topic-pills" id="topicContainer"></div>
+    </div>
+
+    <!-- 3. MAIN VERB & V1/V2/V3 DISPLAY -->
+    <div class="section-row">
+        <div class="label-tag">3. MAIN VERB</div>
+        <div style="display: flex; gap: 12px; align-items: center; flex-wrap: wrap; width: calc(100% - 155px);">
+            <select class="select-input" id="verbSelect" onchange="updateEngine()"></select>
+            <button class="action-btn" style="background: var(--primary-blue);" onclick="randomizeVerb()">🎲 Random Verbo</button>
+            
+            <div class="verb-forms-display">
+                <div class="form-box"><span>V1 (BASE)</span><strong id="lblV1">-</strong></div>
+                <div class="form-box"><span>V2 (PAST)</span><strong id="lblV2">-</strong></div>
+                <div class="form-box"><span>V3 (PARTIC)</span><strong id="lblV3">-</strong></div>
+                <div class="form-box"><span>V-ING</span><strong id="lblIng">-</strong></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 4. MODE (PILLAR) -->
+    <div class="section-row">
+        <div class="label-tag">4. MODE (PILLAR)</div>
+        <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap; width: calc(100% - 155px);">
+            <select class="select-input" id="tenseSelect" onchange="updateEngine()" style="max-width: 320px;">
+                <optgroup label="Tiempos Maestros (1-12)">
+                    <option value="simple-present">01 — Simple Present (Do / Does + V1)</option>
+                    <option value="simple-past">02 — Simple Past (Did + V2)</option>
+                    <option value="simple-future">03 — Simple Future (Will + V1)</option>
+                    <option value="present-continuous">04 — Present Continuous (Am/Is/Are + V-ing)</option>
+                    <option value="past-continuous">05 — Past Continuous (Was/Were + V-ing)</option>
+                    <option value="future-continuous">06 — Future Continuous (Will be + V-ing)</option>
+                    <option value="present-perfect">07 — Present Perfect (Have/Has + V3)</option>
+                    <option value="past-perfect">08 — Present Perfect (Had + V3)</option>
+                    <option value="future-perfect">09 — Future Perfect (Will have + V3)</option>
+                    <option value="present-perfect-cont">10 — Present Perfect Cont. (Have/Has been + V-ing)</option>
+                    <option value="past-perfect-cont">11 — Present Perfect Cont. (Had been + V-ing)</option>
+                    <option value="future-perfect-cont">12 — Present Perfect Cont. (Will have been + V-ing)</option>
+                </optgroup>
+                <optgroup label="Verbos Modales (13-16)">
+                    <option value="modal-would">13. Would (Condicional / -ría)</option>
+                    <option value="modal-could">14. Could (Posibilidad / Poder)</option>
+                    <option value="modal-should">15. Should (Sugerencia / Consejo)</option>
+                    <option value="modal-must">16. Must / Have to (Obligación)</option>
+                </optgroup>
+                <optgroup label="Estados de TO BE (17-20)">
+                    <option value="state-tobe-identity">17. TO BE: Estado / Identidad</option>
+                    <option value="state-tobe-continuous">18. TO BE: Aux. Continuo (BE + V-ing)</option>
+                    <option value="state-tobe-participle">19. TO BE: Estado Participio (Been)</option>
+                    <option value="state-tobe-passive">20. TO BE: Voz Pasiva / Futuro</option>
+                </optgroup>
+            </select>
+            <button class="action-btn" style="background: var(--primary-blue);" onclick="randomizeTense()">🎲 Random Modo</button>
+            <div class="use-card" id="useCard"></div>
+        </div>
+    </div>
+
+    <!-- 5. ZOOM / PROMPT CON FÓRMULAS MAESTRAS -->
+    <div class="section-row">
+        <div class="label-tag">5. ZOOM / PROMPT</div>
+        <div class="zoom-box" id="zoomBox">
+            <div class="zoom-header">
+                <span style="font-size: 11px; font-weight: bold; color: #166534;">AYUDA DEL PILAR & PREGUNTA GANCHO</span>
+            </div>
+            <div class="question-box" id="questionBox">"Cargando pregunta..."</div>
+
+            <div style="font-size: 11px; font-weight: 800; color: #1e293b; margin-top: 10px;">📐 FÓRMULAS ESTRUCTURALES (+, -, ?):</div>
+            <div class="formula-panel" id="formulaPanel"></div>
+        </div>
+    </div>
+
+    <!-- 6. BUILDER BLOCKS -->
+    <div class="section-row">
+        <div class="label-tag">6. BUILDER BLOCKS</div>
+        <div class="blocks-assembly" id="blocksContainer"></div>
+    </div>
+</div>
+
+<!-- MODAL SUBJECT -->
+<div class="modal-overlay" id="subjectModal">
+    <div class="modal-card" style="border: 3px solid var(--b-subject);">
+        <div class="modal-header">
+            <h3 style="color: var(--b-subject);">👤 Subject Selector (Sujeto)</h3>
+            <button class="action-btn" style="background:#ef4444;" onclick="closeModal('subjectModal')">✕</button>
+        </div>
+        <p style="font-size: 12px; color: #475569; margin-bottom: 12px;">Selecciona el sujeto de la oración:</p>
+        <div class="freq-grid">
+            <div class="freq-item" style="background: #0284c7;" onclick="selectSubject('I')">I (Yo)</div>
+            <div class="freq-item" style="background: #0369a1;" onclick="selectSubject('You')">You (Tú / Ustedes)</div>
+            <div class="freq-item" style="background: #0284c7;" onclick="selectSubject('He')">He (Él)</div>
+            <div class="freq-item" style="background: #0369a1;" onclick="selectSubject('She')">She (Ella)</div>
+            <div class="freq-item" style="background: #0284c7;" onclick="selectSubject('We')">We (Nosotros)</div>
+            <div class="freq-item" style="background: #0369a1;" onclick="selectSubject('They')">They (Ellos / Ellas)</div>
+            <div class="freq-item" style="background: #475569;" onclick="selectSubject('my family')">My Family (Mi familia)</div>
+        </div>
+    </div>
+</div>
+
+<!-- MODAL AUXILIARY -->
+<div class="modal-overlay" id="auxModal">
+    <div class="modal-card" style="border: 3px solid var(--b-aux);">
+        <div class="modal-header">
+            <h3 style="color: var(--b-aux);">⚙️ Auxiliary & Wheel Engine</h3>
+            <button class="action-btn" style="background:#ef4444;" onclick="closeModal('auxModal')">✕</button>
+        </div>
+        <p style="font-size: 12px; color: #475569; margin-bottom: 12px;">Selecciona el auxiliar o estructura de la rueda:</p>
+        <div class="freq-grid">
+            <div class="freq-item" style="background: #d97706;" onclick="selectAux('do / does')">Do / Does (Simple Present)</div>
+            <div class="freq-item" style="background: #b45309;" onclick="selectAux('did')">Did (Simple Past)</div>
+            <div class="freq-item" style="background: #d97706;" onclick="selectAux('will')">Will (Simple Future)</div>
+            <div class="freq-item" style="background: #b45309;" onclick="selectAux('have / has')">Have / Has (Present Perfect)</div>
+            <div class="freq-item" style="background: #d97706;" onclick="selectAux('had')">Had (Past Perfect)</div>
+            <div class="freq-item" style="background: #b45309;" onclick="selectAux('would')">Would (Condicional -ría)</div>
+            <div class="freq-item" style="background: #d97706;" onclick="selectAux('could')">Could (Podría)</div>
+            <div class="freq-item" style="background: #d97706;" onclick="selectAux('should')">Should (Debería)</div>
+            <div class="freq-item" style="background: #d97706;" onclick="selectAux('must')">Must (Obligación)</div>
+            <div class="freq-item" style="background: #78350f;" onclick="selectAux('want to')">Want to (Rueda: Querer)</div>
+            <div class="freq-item" style="background: #78350f;" onclick="selectAux('have to')">Have to (Rueda: Tener que)</div>
+            <div class="freq-item" style="background: #78350f;" onclick="selectAux('need to')">Need to (Rueda: Necesitar)</div>
+            <div class="freq-item" style="background: #78350f;" onclick="selectAux('used to')">Used to (Rueda: Solía)</div>
+        </div>
+    </div>
+</div>
+
+<!-- MODAL FREQUENCY -->
+<div class="modal-overlay" id="frequencyModal">
+    <div class="modal-card" style="border: 3px solid var(--b-frq);">
+        <div class="modal-header">
+            <h3 style="color: var(--b-frq);">🔄 Frequency Scale (Adverbios)</h3>
+            <button class="action-btn" style="background:#ef4444;" onclick="closeModal('frequencyModal')">✕</button>
+        </div>
+        <p style="font-size: 12px; color: #475569; margin-bottom: 12px;">Selecciona la frecuencia de ocurrencia:</p>
+        <div class="freq-grid">
+            <div class="freq-item" style="background: #16a34a;" onclick="selectFrequency('always')">Always (Siempre - 100%)[cite: 4]</div>
+            <div class="freq-item" style="background: #22c55e;" onclick="selectFrequency('usually')">Usually (Usualmente)[cite: 4]</div>
+            <div class="freq-item" style="background: #4ade80;" onclick="selectFrequency('normally')">Normally (Normalmente)[cite: 4]</div>
+            <div class="freq-item" style="background: #facc15; color:#0f172a;" onclick="selectFrequency('often')">Often (A menudo)[cite: 4]</div>
+            <div class="freq-item" style="background: #eab308;" onclick="selectFrequency('sometimes')">Sometimes (A veces - 50%)[cite: 4]</div>
+            <div class="freq-item" style="background: #f97316;" onclick="selectFrequency('occasionally')">Occasionally (Ocasionalmente)[cite: 4]</div>
+            <div class="freq-item" style="background: #ec4899;" onclick="selectFrequency('seldom')">Seldom (Rara vez)[cite: 4]</div>
+            <div class="freq-item" style="background: #f43f5e;" onclick="selectFrequency('rarely')">Rarely (Poco común)[cite: 4]</div>
+            <div class="freq-item" style="background: #dc2626;" onclick="selectFrequency('never')">Never (Nunca - 0%)[cite: 4]</div>
+        </div>
+    </div>
+</div>
+
+<!-- MODAL VERB -->
+<div class="modal-overlay" id="verbModal">
+    <div class="modal-card" style="border: 3px solid var(--b-verb);">
+        <div class="modal-header">
+            <h3 style="color: var(--b-verb);">⚡ Verb Engine (-ING & Base)</h3>
+            <button class="action-btn" style="background:#ef4444;" onclick="closeModal('verbModal')">✕</button>
+        </div>
+        <p style="font-size: 12px; color: #475569; margin-bottom: 12px;">Selecciona la forma del verbo:</p>
+        <div class="freq-grid">
+            <div class="freq-item" style="background: #ef4444;" onclick="selectVerbForm('study')">V1 Base (ej. study)</div>
+            <div class="freq-item" style="background: #dc2626;" onclick="selectVerbForm('studying')">V-ING Gerundio</div>
+            <div class="freq-item" style="background: #b91c1c;" onclick="selectVerbForm('studied')">V2 / V3 Participio</div>
+        </div>
+    </div>
+</div>
+
+<!-- MODAL OSASCOM + OI -->
+<div class="modal-overlay" id="osascomModal">
+    <div class="modal-card" style="border: 3px solid var(--b-object);">
+        <div class="modal-header">
+            <h3 style="color: var(--b-object);">📦 Object Builder (OD + OI)</h3>
+            <button class="action-btn" style="background:#ef4444;" onclick="closeModal('osascomModal')">✕</button>
+        </div>
+        <p style="font-size: 11px; font-weight: 800; color: #166534; margin-bottom: 6px; text-transform: uppercase;">1. Objeto Directo (OD) — OSASCOM</p>
+        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; margin-bottom: 12px;">
+            <div><label style="font-size:10px; font-weight:bold;">Opinion</label><select id="o_opinion" class="select-input" style="width:100%; padding:4px;" onchange="buildObjectPhrase()"><option value="">-- Ninguna --</option><option value="a beautiful">a beautiful</option><option value="a nice">a nice</option></select></div>
+            <div><label style="font-size:10px; font-weight:bold;">Size</label><select id="o_size" class="select-input" style="width:100%; padding:4px;" onchange="buildObjectPhrase()"><option value="">-- Ninguno --</option><option value="big">big</option><option value="small">small</option></select></div>
+            <div><label style="font-size:10px; font-weight:bold;">Age</label><select id="o_age" class="select-input" style="width:100%; padding:4px;" onchange="buildObjectPhrase()"><option value="">-- Ninguna --</option><option value="old">old</option><option value="new">new</option></select></div>
+            <div><label style="font-size:10px; font-weight:bold;">Shape</label><select id="o_shape" class="select-input" style="width:100%; padding:4px;" onchange="buildObjectPhrase()"><option value="">-- Ninguna --</option><option value="round">round</option><option value="square">square</option></select></div>
+            <div><label style="font-size:10px; font-weight:bold;">Color</label><select id="o_color" class="select-input" style="width:100%; padding:4px;" onchange="buildObjectPhrase()"><option value="">-- Ninguno --</option><option value="red">red</option><option value="blue">blue</option></select></div>
+            <div><label style="font-size:10px; font-weight:bold;">Origin</label><select id="o_origin" class="select-input" style="width:100%; padding:4px;" onchange="buildObjectPhrase()"><option value="">-- Ninguno --</option><option value="Italian">Italian</option><option value="American">American</option></select></div>
+            <div><label style="font-size:10px; font-weight:bold;">Material</label><select id="o_material" class="select-input" style="width:100%; padding:4px;" onchange="buildObjectPhrase()"><option value="">-- Ninguno --</option><option value="wooden">wooden</option><option value="metallic">metallic</option></select></div>
+            <div><label style="font-size:10px; font-weight:bold;">Noun (Sustantivo)</label><input type="text" id="o_noun" class="select-input" style="width:100%; padding:4px;" value="table" oninput="buildObjectPhrase()"></div>
+        </div>
+        <p style="font-size: 11px; font-weight: 800; color: #166534; margin-bottom: 6px; text-transform: uppercase;">2. Objeto Indirecto (OI) — Destinatario Opcional</p>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 12px;">
+            <div>
+                <label style="font-size:10px; font-weight:bold;">Preposición</label>
+                <select id="oi_prep" class="select-input" style="width:100%; padding:4px;" onchange="buildObjectPhrase()">
+                    <option value="">-- Sin Objeto Indirecto --</option>
+                    <option value="to">to (a...)</option>
+                    <option value="for">for (para...)</option>
+                </select>
+            </div>
+            <div>
+                <label style="font-size:10px; font-weight:bold;">Destinatario</label>
+                <select id="oi_target" class="select-input" style="width:100%; padding:4px;" onchange="buildObjectPhrase()">
+                    <option value="my family">my family</option>
+                    <option value="my daughter">my daughter</option>
+                    <option value="the manager">the manager</option>
+                    <option value="me">me</option>
+                </select>
+            </div>
+        </div>
+        <div style="background:#f0fdf4; border:2px dashed var(--b-object); padding:10px; border-radius:8px; font-weight:bold; color:#14532d; text-align:center; margin-bottom:15px; font-size:13px;" id="osascomResult">a beautiful big new round blue Italian metallic table</div>
+        <button class="action-btn" style="background: var(--b-object); width: 100%; padding: 10px;" onclick="applyObject()">✓ Insertar Objeto (OD + OI)</button>
+    </div>
+</div>
+
+<!-- MODAL MANNY BIKE (COMPLETO A, B, C, D) -->
+<div class="modal-overlay" id="mannerModal">
+    <div class="modal-card" style="border: 3px solid var(--b-manner);">
+        <div class="modal-header">
+            <h3 style="color: var(--b-manner);">🚴 Manny Bike (Manner / How?)</h3>
+            <button class="action-btn" style="background:#ef4444;" onclick="closeModal('mannerModal')">✕</button>
+        </div>
+        <p style="font-size: 12px; color: #475569; margin-bottom: 12px;">Elige cómo se ejecuta la acción (Modo/Método):</p>
+        <div class="freq-grid">
+            <div class="freq-item" style="background:#f97316;" onclick="selectManner('quickly')">A. STYLE (Adverbio en -ly): carefully, quickly</div>
+            <div class="freq-item" style="background:#ea580c;" onclick="selectManner('using JavaScript')">B. TOOL (Herramienta): using a tool</div>
+            <div class="freq-item" style="background:#c2410c;" onclick="selectManner('by practicing every day')">C. PRACTICE (Acción): by practicing</div>
+            <div class="freq-item" style="background:#9a3412;" onclick="selectManner('through experience')">D. PATH (Camino/Ruta): through experience</div>
+        </div>
+    </div>
+</div>
+
+<!-- MODAL PIRRYS -->
+<div class="modal-overlay" id="placeModal">
+    <div class="modal-card" style="border: 3px solid var(--b-place);">
+        <div class="modal-header">
+            <h3 style="color: var(--b-place);">🧭 Pirrys Place Assistant (In / On / At)</h3>
+            <button class="action-btn" style="background:#ef4444;" onclick="closeModal('placeModal')">✕</button>
+        </div>
+        <p style="font-size: 12px; color: #475569; margin-bottom: 12px;">Selecciona el nivel de precisión espacial:</p>
+        <div class="freq-grid">
+            <div class="freq-item p-in" style="background:#0284c7;" onclick="selectPlace('in the city')">IN (Áreas Grandes / Contenedores): in Canada</div>
+            <div class="freq-item p-on" style="background:#d97706;" onclick="selectPlace('on the street')">ON (Superficies / Tránsito): on a bus</div>
+            <div class="freq-item p-at" style="background:#b91c1c;" onclick="selectPlace('at home')">AT (Punto Específico / GPS): at home</div>
+        </div>
+    </div>
+</div>
+
+<!-- MODAL TIMMY TIME -->
+<div class="modal-overlay" id="timeModal">
+    <div class="modal-card" style="border: 3px solid var(--b-time);">
+        <div class="modal-header">
+            <h3 style="color: var(--b-time);">⏳ Timmy Time Assistant (In / On / At)</h3>
+            <button class="action-btn" style="background:#ef4444;" onclick="closeModal('timeModal')">✕</button>
+        </div>
+        <p style="font-size: 12px; color: #475569; margin-bottom: 12px;">Selecciona la escala temporal:</p>
+        <div class="freq-grid">
+            <div class="freq-item p-in" style="background:#0284c7;" onclick="selectTime('in 2026')">IN (Períodos Largos): in 2026</div>
+            <div class="freq-item p-on" style="background:#d97706;" onclick="selectTime('on Monday')">ON (Días y Fechas): on Monday</div>
+            <div class="freq-item p-at" style="background:#b91c1c;" onclick="selectTime('at 3 PM')">AT (Momento Exacto): at 3 PM</div>
+        </div>
+    </div>
+</div>
+
+<!-- MODAL REASON (COMPLETO A, B, C, D) -->
+<div class="modal-overlay" id="reasonModal">
+    <div class="modal-card" style="border: 3px solid var(--b-reason);">
+        <div class="modal-header">
+            <h3 style="color: #0284c7;">💡 Reason Master (Why?)[cite: 4]</h3>
+            <button class="action-btn" style="background:#ef4444;" onclick="closeModal('reasonModal')">✕</button>
+        </div>
+        <p style="font-size: 12px; color: #475569; margin-bottom: 12px;">Elige el conector de motivo o propósito[cite: 4]:</p>
+        <div class="freq-grid">
+            <div class="freq-item" style="background: #0284c7;" onclick="selectReason('to study english')">A. Purpose: to + verb[cite: 4]</div>
+            <div class="freq-item" style="background: #0369a1;" onclick="selectReason('because it is important')">B. Explanation: because + clause[cite: 4]</div>
+            <div class="freq-item" style="background: #0284c7;" onclick="selectReason('in order to improve')">C. Formal Purpose: in order to[cite: 4]</div>
+            <div class="freq-item" style="background: #0369a1;" onclick="selectReason('so that I can travel')">D. Goal: so that + clause[cite: 4]</div>
+        </div>
+    </div>
+</div>
+
+<!-- MODAL BRIDGE (COMPLETO A, B, C, D) -->
+<div class="modal-overlay" id="bridgeModal">
+    <div class="modal-card" style="border: 3px solid var(--b-bridge);">
+        <div class="modal-header">
+            <h3 style="color: var(--b-bridge);">🌉 Bridge Connector</h3>
+            <button class="action-btn" style="background:#ef4444;" onclick="closeModal('bridgeModal')">✕</button>
+        </div>
+        <p style="font-size: 12px; color: #475569; margin-bottom: 12px;">Selecciona el conector para encadenar la siguiente oración[cite: 5]:</p>
+        <div class="freq-grid">
+            <div class="freq-item" style="background: #0891b2;" onclick="selectBridge('and then...')">A. Addition: and / and then[cite: 5]</div>
+            <div class="freq-item" style="background: #0e7490;" onclick="selectBridge('but...')">B. Contrast: but / however[cite: 5]</div>
+            <div class="freq-item" style="background: #0891b2;" onclick="selectBridge('because...')">C. Cause: because / since[cite: 5]</div>
+            <div class="freq-item" style="background: #0e7490;" onclick="selectBridge('if...')">D. Condition: if / in case[cite: 5]</div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // FÓRMULAS ESTRUCTURALES DEL TABLERO (Con la posición del TO BE y frecuencia adaptada)
+    const masterFormulas = {
+        'simple-present': { pos: "S + (FRQ) + V1 (s/es) + OD/OI + MPT", neg: "S + DO NOT / DOESN'T + V1 + OD/OI + MPT", int: "(Wh) + DO / DOES + S + V1 + OD/OI + MPT?" },
+        'present-continuous': { pos: "S + AM / IS / ARE + (FRQ) + V1-ing + OD/OI + MPT", neg: "S + AM NOT / ISN'T / AREN'T + V1-ing + OD/OI + MPT", int: "(Wh) + AM / IS / ARE + S + V1-ing + OD/OI + MPT?" },
+        'present-perfect': { pos: "S + HAVE / HAS + (FRQ) + V3 + OD/OI + MPT", neg: "S + HAVEN'T / HASN'T + V3 + OD/OI + MPT", int: "(Wh) + HAVE / HAS + S + V3 + OD/OI + MPT?" },
+        'present-perfect-cont': { pos: "S + HAVE / HAS + BEEN + V1-ing + OD/OI + MPT", neg: "S + HAVEN'T / HASN'T + BEEN + V1-ing + OD/OI + MPT", int: "(Wh) + HAVE / HAS + S + BEEN + V1-ing + OD/OI + MPT?" },
+        'simple-past': { pos: "S + (FRQ) + V2 + OD/OI + MPT", neg: "S + DIDN'T + V1 + OD/OI + MPT", int: "(Wh) + DID + S + V1 + OD/OI + MPT?" },
+        'past-continuous': { pos: "S + WAS / WERE + V1-ing + OD/OI + MPT", neg: "S + WASN'T / WEREN'T + V1-ing + OD/OI + MPT", int: "(Wh) + WAS / WERE + S + V1-ing + OD/OI + MPT?" },
+        'past-perfect': { pos: "S + HAD + V3 + OD/OI + MPT", neg: "S + HADN'T + V3 + OD/OI + MPT", int: "(Wh) + HAD + S + V3 + OD/OI + MPT?" },
+        'past-perfect-cont': { pos: "S + HAD + BEEN + V1-ing + OD/OI + MPT", neg: "S + HADN'T + BEEN + V1-ing + OD/OI + MPT", int: "(Wh) + HAD + S + BEEN + V1-ing + OD/OI + MPT?" },
+        'simple-future': { pos: "S + WILL + (FRQ) + V1 + OD/OI + MPT", neg: "S + WON'T + V1 + OD/OI + MPT", int: "(Wh) + WILL + S + V1 + OD/OI + MPT?" },
+        'future-continuous': { pos: "S + WILL BE + V1-ing + OD/OI + MPT", neg: "S + WON'T BE + V1-ing + OD/OI + MPT", int: "(Wh) + WILL + S + BE + V1-ing + OD/OI + MPT?" },
+        'future-perfect': { pos: "S + WILL HAVE + V3 + OD/OI + MPT", neg: "S + WON'T HAVE + V3 + OD/OI + MPT", int: "(Wh) + WILL + S + HAVE + V3 + OD/OI + MPT?" },
+        'future-perfect-cont': { pos: "S + WILL HAVE BEEN + V1-ing + OD/OI + MPT", neg: "S + WON'T HAVE BEEN + V1-ing + OD/OI + MPT", int: "(Wh) + WILL + S + HAVE BEEN + V1-ing + OD/OI + MPT?" },
+        'modal-would': { pos: "S + WOULD + V1 + OD/OI + MPT", neg: "S + WOULDN'T + V1 + OD/OI + MPT", int: "(Wh) + WOULD + S + V1 + OD/OI + MPT?" },
+        'modal-could': { pos: "S + COULD + V1 + OD/OI + MPT", neg: "S + COULDN'T + V1 + OD/OI + MPT", int: "(Wh) + COULD + S + V1 + OD/OI + MPT?" },
+        'modal-should': { pos: "S + SHOULD + V1 + OD/OI + MPT", neg: "S + SHOULDN'T + V1 + OD/OI + MPT", int: "(Wh) + SHOULD + S + V1 + OD/OI + MPT?" },
+        'modal-must': { pos: "S + MUST + V1 + OD/OI + MPT", neg: "S + MUSTN'T + V1 + OD/OI + MPT", int: "(Wh) + MUST + S + V1 + OD/OI + MPT?" },
+        'state-tobe-identity': { pos: "S + AM / IS / ARE + FRQ + STATE + MPT (¡FRQ después de To Be!)", neg: "S + AM NOT / ISN'T / AREN'T + STATE + MPT", int: "(Wh) + AM / IS / ARE + S + STATE + MPT?" },
+        'state-tobe-continuous': { pos: "S + AM / IS / ARE + FRQ + BEING + STATE", neg: "S + AM NOT / ISN'T / AREN'T + BEING + STATE", int: "(Wh) + AM / IS / ARE + S + BEING + STATE?" },
+        'state-tobe-participle': { pos: "S + HAVE / HAS + BEEN + STATE + MPT", neg: "S + HAVEN'T / HASN'T + BEEN + STATE + MPT", int: "(Wh) + HAVE / HAS + S + BEEN + STATE + MPT?" },
+        'state-tobe-passive': { pos: "S + WILL BE / WAS + V3 + MPT", neg: "S + WON'T BE / WASN'T + V3 + MPT", int: "(Wh) + WILL / WAS + S + BE + V3 + MPT?" }
+    };
+
+    const modesData = {
+        'simple-present': { use: "Rutinas, hábitos diarios y hechos o verdades universales.", frame: "every day", type: "tense" },
+        'simple-past': { use: "Acciones terminadas e históricas en un momento específico del pasado.", frame: "yesterday", type: "tense" },
+        'simple-future': { use: "Decisiones espontáneas, promesas o predicciones sobre el futuro.", frame: "tomorrow", type: "tense" },
+        'present-continuous': { use: "Acciones ocurriendo justo ahora o planes temporales en desarrollo.", frame: "right now", type: "tense" },
+        'past-continuous': { use: "Acciones que estaban en proceso cuando fueron interrumpidas en el pasado.", frame: "while", type: "tense" },
+        'future-continuous': { use: "Acciones que estarán en desarrollo en un momento exacto del futuro.", frame: "tomorrow", type: "tense" },
+        'present-perfect': { use: "Experiencias de vida o acciones pasadas con impacto en el presente.", frame: "ever", type: "tense" },
+        'past-perfect': { use: "La 'acción más antigua' entre dos eventos ocurridos en el pasado.", frame: "before", type: "tense" },
+        'future-perfect': { use: "Metas y objetivos que estarán cumplidos antes de una fecha límite.", frame: "by next month", type: "tense" },
+        'present-perfect-cont': { use: "Acciones que iniciaron en el pasado y continúan ininterrumpidas hasta hoy.", frame: "for years", type: "tense" },
+        'past-perfect-cont': { use: "Procesos continuos en el pasado antes de que ocurriera otro evento.", frame: "before", type: "tense" },
+        'future-perfect-cont': { use: "Duración de una actividad continua medida desde un punto futuro.", frame: "by next year", type: "tense" },
+        
+        'modal-would': { use: "Condicional (-ría): Hipótesis, deseos o situaciones imaginarias.", frame: "if you had time", type: "modal", word: "would" },
+        'modal-could': { use: "Posibilidad o habilidad pasada/presente (Podría / Podía).", frame: "tomorrow", type: "modal", word: "could" },
+        'modal-should': { use: "Sugerencia o consejo amigable (Deberías).", frame: "today", type: "modal", word: "should" },
+        'modal-must': { use: "Obligación estricta, regla o necesidad imperativa (Debes).", frame: "now", type: "modal", word: "must" },
+        
+        'state-tobe-identity': { use: "Estado o identidad pura (Ser o Estar: am, is, are, was, were).", frame: "today", type: "tobe-state", word: "is" },
+        'state-tobe-continuous': { use: "Auxiliar continuo: Soporte para acciones en desarrollo (BE + V-ing).", frame: "right now", type: "tobe-state", word: "is" },
+        'state-tobe-participle': { use: "Estado participio: Experiencias de existencia acumulada (Been).", frame: "recently", type: "tobe-state", word: "have been" },
+        'state-tobe-passive': { use: "Voz pasiva: El sujeto recibe la acción (Será hecho / Fue hecho).", frame: "tomorrow", type: "tobe-state", word: "will be" }
+    };
+
+    const topicLevels = {
+        "Level 1: Personal Life": ["01 Family", "02 Friends", "03 Daily Routine", "04 Hobbies", "05 Food & Drinks", "06 Sports & Fitness"],
+        "Level 2: School and Work": ["07 School", "08 English Learning", "09 Jobs & Careers", "10 Technology", "11 Communication", "12 Business"],
+        "Level 3: Lifestyle": ["13 Health", "14 Travel", "15 Transportation", "16 Shopping", "17 Money & Finances", "18 Entertainment"],
+        "Level 4: Society": ["19 Environment", "20 Education", "21 Culture & Traditions", "22 Community", "23 News & Media", "24 Future & Innovation"]
+    };
+
+    const verbsList = [
+        { name: "be", type: "tobe", v1: "be", v2: "was/were", v3: "been", ing: "being" },
+        { name: "have", type: "action", v1: "have", v2: "had", v3: "had", ing: "having" },
+        { name: "do", type: "action", v1: "do", v2: "did", v3: "done", ing: "doing" },
+        { name: "say", type: "action", v1: "say", v2: "said", v3: "said", ing: "saying" },
+        { name: "go", type: "action", v1: "go", v2: "went", v3: "gone", ing: "going" },
+        { name: "get", type: "action", v1: "get", v2: "got", v3: "gotten", ing: "getting" },
+        { name: "make", type: "action", v1: "make", v2: "made", v3: "made", ing: "making" },
+        { name: "know", type: "action", v1: "know", v2: "knew", v3: "known", ing: "knowing" },
+        { name: "think", type: "action", v1: "think", v2: "thought", v3: "thought", ing: "thinking" },
+        { name: "take", type: "action", v1: "take", v2: "took", v3: "taken", ing: "taking" },
+        { name: "see", type: "action", v1: "see", v2: "saw", v3: "seen", ing: "seeing" },
+        { name: "come", type: "action", v1: "come", v2: "came", v3: "come", ing: "coming" },
+        { name: "find", type: "action", v1: "find", v2: "found", v3: "found", ing: "finding" },
+        { name: "give", type: "action", v1: "give", v2: "gave", v3: "given", ing: "giving" },
+        { name: "tell", type: "action", v1: "tell", v2: "told", v3: "told", ing: "telling" },
+        { name: "become", type: "action", v1: "become", v2: "became", v3: "become", ing: "becoming" },
+        { name: "leave", type: "action", v1: "leave", v2: "left", v3: "left", ing: "leaving" },
+        { name: "put", type: "action", v1: "put", v2: "put", v3: "put", ing: "putting" },
+        { name: "keep", type: "action", v1: "keep", v2: "kept", v3: "kept", ing: "keeping" },
+        { name: "let", type: "action", v1: "let", v2: "let", v3: "let", ing: "letting" },
+        { name: "begin", type: "action", v1: "begin", v2: "began", v3: "begun", ing: "beginning" },
+        { name: "show", type: "action", v1: "show", v2: "showed", v3: "shown", ing: "showing" },
+        { name: "hear", type: "action", v1: "hear", v2: "heard", v3: "heard", ing: "hearing" },
+        { name: "run", type: "action", v1: "run", v2: "ran", v3: "run", ing: "running" },
+        { name: "bring", type: "action", v1: "bring", v2: "brought", v3: "brought", ing: "bringing" },
+        { name: "write", type: "action", v1: "write", v2: "wrote", v3: "written", ing: "writing" },
+        { name: "sit", type: "action", v1: "sit", v2: "sat", v3: "sat", ing: "sitting" },
+        { name: "stand", type: "action", v1: "stand", v2: "stood", v3: "stood", ing: "standing" },
+        { name: "lose", type: "action", v1: "lose", v2: "lost", v3: "lost", ing: "losing" },
+        { name: "pay", type: "action", v1: "pay", v2: "paid", v3: "paid", ing: "paying" },
+        { name: "meet", type: "action", v1: "meet", v2: "met", v3: "met", ing: "meeting" },
+        { name: "lead", type: "action", v1: "lead", v2: "led", v3: "led", ing: "leading" },
+        { name: "understand", type: "action", v1: "understand", v2: "understood", v3: "understood", ing: "understanding" },
+        { name: "speak", type: "action", v1: "speak", v2: "spoke", v3: "spoken", ing: "speaking" },
+        { name: "read", type: "action", v1: "read", v2: "read", v3: "read", ing: "reading" },
+        { name: "spend", type: "action", v1: "spend", v2: "spent", v3: "spent", ing: "spending" },
+        { name: "grow", type: "action", v1: "grow", v2: "grew", v3: "grown", ing: "growing" },
+        { name: "win", type: "action", v1: "win", v2: "won", v3: "won", ing: "winning" },
+        { name: "buy", type: "action", v1: "buy", v2: "bought", v3: "bought", ing: "buying" },
+        { name: "send", type: "action", v1: "send", v2: "sent", v3: "sent", ing: "sending" },
+        { name: "build", type: "action", v1: "build", v2: "built", v3: "built", ing: "building" },
+        { name: "fall", type: "action", v1: "fall", v2: "fell", v3: "fallen", ing: "falling" },
+        { name: "want", type: "action", v1: "want", v2: "wanted", v3: "wanted", ing: "wanting" },
+        { name: "look", type: "action", v1: "look", v2: "looked", v3: "looked", ing: "looking" },
+        { name: "use", type: "action", v1: "use", v2: "used", v3: "used", ing: "using" },
+        { name: "work", type: "action", v1: "work", v2: "worked", v3: "worked", ing: "working" },
+        { name: "call", type: "action", v1: "call", v2: "called", v3: "called", ing: "calling" },
+        { name: "try", type: "action", v1: "try", v2: "tried", v3: "tried", ing: "trying" },
+        { name: "ask", type: "action", v1: "ask", v2: "asked", v3: "asked", ing: "asking" },
+        { name: "need", type: "action", v1: "need", v2: "needed", v3: "needed", ing: "needing" }
+    ];
+
+    let currentLevel = "Level 1: Personal Life";
+    let currentTopic = "01 Family";
+
+    function initApp() {
+        const levelContainer = document.getElementById('levelContainer');
+        Object.keys(topicLevels).forEach((lvl, idx) => {
+            const btn = document.createElement('button');
+            btn.className = `pill-btn ${idx === 0 ? 'active' : ''}`;
+            btn.textContent = lvl;
+            btn.onclick = () => selectLevel(lvl, btn);
+            levelContainer.appendChild(btn);
+        });
+
+        populateTopics(currentLevel);
+        populateVerbs();
+        updateEngine();
+    }
+
+    function selectLevel(lvl, btnElem) {
+        document.querySelectorAll('#levelContainer .pill-btn').forEach(b => b.classList.remove('active'));
+        btnElem.classList.add('active');
+        currentLevel = lvl;
+        populateTopics(lvl);
+    }
+
+    function populateTopics(lvl) {
+        const topicContainer = document.getElementById('topicContainer');
+        topicContainer.innerHTML = '';
+        topicLevels[lvl].forEach((top, idx) => {
+            const pill = document.createElement('button');
+            pill.className = `pill-btn ${idx === 0 ? 'active' : ''}`;
+            pill.textContent = top;
+            pill.onclick = () => {
+                document.querySelectorAll('#topicContainer .pill-btn').forEach(p => p.classList.remove('active'));
+                pill.classList.add('active');
+                currentTopic = top;
+                updateEngine();
+            };
+            topicContainer.appendChild(pill);
+        });
+        currentTopic = topicLevels[lvl][0];
+        updateEngine();
+    }
+
+    function populateVerbs() {
+        const verbSelect = document.getElementById('verbSelect');
+        verbSelect.innerHTML = '';
+        verbsList.forEach(v => {
+            const opt = document.createElement('option');
+            opt.value = v.name;
+            opt.textContent = `${v.name.toUpperCase()} (${v.type === 'tobe' ? 'To Be' : 'Acción'})`;
+            verbSelect.appendChild(opt);
+        });
+    }
+
+    function randomizeVerb() {
+        document.getElementById('verbSelect').selectedIndex = Math.floor(Math.random() * verbsList.length);
+        updateEngine();
+    }
+
+    function randomizeTense() {
+        const tenseSelect = document.getElementById('tenseSelect');
+        tenseSelect.selectedIndex = Math.floor(Math.random() * tenseSelect.options.length);
+        updateEngine();
+    }
+
+    function randomizeEverything() {
+        const levels = Object.keys(topicLevels);
+        const randomLevel = levels[Math.floor(Math.random() * levels.length)];
+        document.querySelectorAll('#levelContainer .pill-btn').forEach(btn => {
+            if(btn.textContent === randomLevel) selectLevel(randomLevel, btn);
+        });
+        const topicBtns = document.querySelectorAll('#topicContainer .pill-btn');
+        if (topicBtns.length > 0) {
+            topicBtns[Math.floor(Math.random() * topicBtns.length)].click();
+        }
+        randomizeVerb();
+        randomizeTense();
+    }
+
+    function cleanTopicName(topicRaw) {
+        return topicRaw.replace(/^[0-9]+\s*/, '').toLowerCase();
+    }
+
+    function generateNaturalQuestion(verbObj, topicRaw, mode) {
+        const cleanTopic = cleanTopicName(topicRaw);
+        const v1 = verbObj.v1;
+        const v3 = verbObj.v3 || `${v1}ed`;
+        
+        if (mode === 'modal-should') return `Should you ${v1 === 'be' ? 'be with' : v1} your ${cleanTopic} today?`;
+        if (mode === 'modal-could') return `Could you ${v1 === 'be' ? 'be with' : v1} your ${cleanTopic} tomorrow?`;
+        if (mode === 'modal-must') return `Must you ${v1 === 'be' ? 'be with' : v1} your ${cleanTopic} right now?`;
+        if (mode === 'modal-would') return `Would you ${v1 === 'be' ? 'be regarding' : v1} your ${cleanTopic} if you had time?`;
+
+        if (mode === 'state-tobe-identity') return `How are you with your ${cleanTopic} today?`;
+        if (mode === 'state-tobe-continuous') return `Why are you being so involved with your ${cleanTopic} right now?`;
+        if (mode === 'state-tobe-participle') return `Have you been busy with your ${cleanTopic} recently?`;
+        if (mode === 'state-tobe-passive') return `Will your ${cleanTopic} be supported tomorrow?`;
+
+        switch(mode) {
+            case 'simple-present': return `Where do you usually ${v1} when you spend time with your ${cleanTopic}?`;
+            case 'simple-past': return `Where did you ${v1} when you were with your ${cleanTopic}?`;
+            case 'simple-future': return `When will you ${v1} regarding your ${cleanTopic}?`;
+            case 'present-continuous': return `Why are you ${verbObj.ing} with your ${cleanTopic} right now?`;
+            case 'past-continuous': return `What were you ${verbObj.ing} when you dealt with ${cleanTopic}?`;
+            case 'future-continuous': return `Will you be focusing on your ${cleanTopic} tomorrow?`;
+            case 'present-perfect': return `Have you ever ${v3} regarding your ${cleanTopic}?`;
+            case 'past-perfect': return `Had you ${v3} before you focused on ${cleanTopic}?`;
+            case 'future-perfect': return `Will you have ${v3} your ${cleanTopic} by next year?`;
+            case 'present-perfect-cont': return `How long have you been ${verbObj.ing} with your ${cleanTopic}?`;
+            case 'past-perfect-cont': return `Had you been ${verbObj.ing} about ${cleanTopic} before that happened?`;
+            case 'future-perfect-cont': return `Will you have been ${verbObj.ing} regarding ${cleanTopic} for long?`;
+            default: return `How do you ${v1} regarding ${cleanTopic}?`;
+        }
+    }
+
+    function updateEngine() {
+        const selectedVerbName = document.getElementById('verbSelect').value;
+        const selectedMode = document.getElementById('tenseSelect').value;
+        const questionBox = document.getElementById('questionBox');
+        const formulaPanel = document.getElementById('formulaPanel');
+        const blocksContainer = document.getElementById('blocksContainer');
+        const useCard = document.getElementById('useCard');
+
+        const verbObj = verbsList.find(v => v.name === selectedVerbName) || verbsList[0];
+        const cleanTopicDisplay = cleanTopicName(currentTopic);
+        let generatedQuestion = generateNaturalQuestion(verbObj, currentTopic, selectedMode);
+
+        document.getElementById('lblV1').textContent = verbObj.v1;
+        document.getElementById('lblV2').textContent = verbObj.v2;
+        document.getElementById('lblV3').textContent = verbObj.v3;
+        document.getElementById('lblIng').textContent = verbObj.ing;
+
+        const modeData = modesData[selectedMode] || { use: "Uso general en conversación.", frame: "now", type: "tense" };
+        useCard.innerHTML = `📌 <strong>Uso Principal:</strong> ${modeData.use} <br><span style="font-size: 11px; color: #64748b;">⏳ <strong>Marcador sugerido:</strong> ${modeData.frame}</span>`;
+
+        // INYECCIÓN DE FÓRMULAS DEL TABLERO
+        const formulaData = masterFormulas[selectedMode] || { pos: "S + AUX + V + C", neg: "S + AUX NOT + V + C", int: "(Wh) + AUX + S + V + C?" };
+        formulaPanel.innerHTML = `
+            <div class="formula-row">
+                <div class="formula-badge f-pos">+</div>
+                <div class="formula-text">${formulaData.pos}</div>
+            </div>
+            <div class="formula-row">
+                <div class="formula-badge f-neg">-</div>
+                <div class="formula-text">${formulaData.neg}</div>
+            </div>
+            <div class="formula-row">
+                <div class="formula-badge f-int">?</div>
+                <div class="formula-text">${formulaData.int}</div>
+            </div>
+        `;
+
+        let auxText = "—";
+        let verbForm = verbObj.v1;
+        let verbLabel = "V1 (BASE)";
+
+        if (selectedMode.startsWith('modal-')) {
+            auxText = modeData.word; 
+            verbForm = verbObj.v1;  
+        } else if (selectedMode === 'state-tobe-identity') {
+            auxText = "am / is / are"; verbForm = "happy / here"; verbLabel = "STATE";
+        } else if (selectedMode === 'state-tobe-continuous') {
+            auxText = "is / are"; verbForm = verbObj.ing; verbLabel = "V-ING";
+        } else if (selectedMode === 'state-tobe-participle') {
+            auxText = "have been"; verbForm = "busy / there"; verbLabel = "STATE";
+        } else if (selectedMode === 'state-tobe-passive') {
+            auxText = "will be"; verbForm = verbObj.v3; verbLabel = "V3";
+        } else {
+            if (selectedMode.includes('continuous') && !selectedMode.includes('perfect')) auxText = "am / was";
+            else if (selectedMode.includes('present-perfect')) auxText = "have";
+            else if (selectedMode.includes('past-perfect')) auxText = "had";
+            else if (selectedMode.includes('future-perfect')) auxText = "will have";
+            else if (selectedMode.includes('present-perfect-cont')) auxText = "have been";
+            else if (selectedMode.includes('past-perfect-cont')) auxText = "had been";
+            else if (selectedMode.includes('future-perfect-cont')) auxText = "will have been";
+            else if (selectedMode === 'simple-future') auxText = "will";
+
+            if (selectedMode === 'simple-past') { verbForm = verbObj.v2; verbLabel = "V2"; }
+            else if (selectedMode.includes('continuous')) { verbForm = verbObj.ing; verbLabel = "V-ING"; }
+            else if (selectedMode.includes('perfect') && !selectedMode.includes('cont')) { verbForm = verbObj.v3; verbLabel = "V3"; }
+        }
+
+        let blocksHTML = `
+            <div class="block-unit b-s">
+                <div class="block-header-title"><span class="block-tag">Subject</span></div>
+                <button class="center-helper-btn" onclick="openModal('subjectModal')">👤 Subject</button>
+                <input type="text" class="block-input" id="inputSubject" value="I">
+            </div>
+            <div class="block-unit b-aux">
+                <div class="block-header-title"><span class="block-tag">Auxiliary</span></div>
+                <button class="center-helper-btn" onclick="openModal('auxModal')">⚙️ Aux Engine</button>
+                <input type="text" class="block-input" id="inputAux" value="${auxText}">
+            </div>
+            <div class="block-unit b-frq">
+                <div class="block-header-title"><span class="block-tag">Frequency</span></div>
+                <button class="center-helper-btn" onclick="openModal('frequencyModal')">🟣 Frequency</button>
+                <input type="text" class="block-input" id="inputFrequency" value="usually">
+            </div>
+            <div class="block-unit b-v">
+                <div class="block-header-title"><span class="block-tag">Verb (${verbLabel})</span></div>
+                <button class="center-helper-btn" onclick="openModal('verbModal')">⚡ Verb</button>
+                <input type="text" class="block-input" id="inputVerb" value="${verbForm}">
+            </div>
+            <div class="block-unit b-o">
+                <div class="block-header-title"><span class="block-tag">Object (OD+OI)</span></div>
+                <button class="center-helper-btn" onclick="openModal('osascomModal')">📦 OSASCOM</button>
+                <input type="text" class="block-input" id="inputObject" value="my ${cleanTopicDisplay}">
+            </div>
+            <div class="block-unit b-m">
+                <div class="block-header-title"><span class="block-tag">Manner</span></div>
+                <button class="center-helper-btn" onclick="openModal('mannerModal')">🚴 Manny Bike</button>
+                <input type="text" class="block-input" id="inputManner" value="quickly">
+            </div>
+            <div class="block-unit b-p">
+                <div class="block-header-title"><span class="block-tag">Place</span></div>
+                <button class="center-helper-btn" onclick="openModal('placeModal')">🧭 Pirrys</button>
+                <input type="text" class="block-input" id="inputPlace" value="at home">
+            </div>
+            <div class="block-unit b-t">
+                <div class="block-header-title"><span class="block-tag">Time</span></div>
+                <button class="center-helper-btn" onclick="openModal('timeModal')">⏳ Timmy Time</button>
+                <input type="text" class="block-input" id="inputTime" value="${modeData.frame}">
+            </div>
+            <div class="block-unit b-why">
+                <div class="block-header-title"><span class="block-tag">Reason</span></div>
+                <button class="center-helper-btn" onclick="openModal('reasonModal')">💡 Reason</button>
+                <input type="text" class="block-input" id="inputReason" placeholder="because...">
+            </div>
+            <div class="block-unit b-bridge">
+                <div class="block-header-title"><span class="block-tag">Bridge</span></div>
+                <button class="center-helper-btn" onclick="openModal('bridgeModal')">🌉 Bridge</button>
+                <input type="text" class="block-input" id="inputBridge" value="and then...">
+            </div>
+        `;
+
+        blocksContainer.innerHTML = blocksHTML;
+        questionBox.textContent = `"${generatedQuestion}"`;
+    }
+
+    function openModal(modalId) {
+        document.getElementById(modalId).style.display = 'flex';
+        if(modalId === 'osascomModal') buildObjectPhrase();
+    }
+
+    function closeModal(modalId) {
+        document.getElementById(modalId).style.display = 'none';
+    }
+
+    function selectSubject(val) { document.getElementById('inputSubject').value = val; closeModal('subjectModal'); }
+    function selectAux(val) { document.getElementById('inputAux').value = val; closeModal('auxModal'); }
+    function selectFrequency(val) { document.getElementById('inputFrequency').value = val; closeModal('frequencyModal'); }
+    function selectVerbForm(val) { document.getElementById('inputVerb').value = val; closeModal('verbModal'); }
+
+    function buildObjectPhrase() {
+        const odParts = [
+            document.getElementById('o_opinion').value,
+            document.getElementById('o_size').value,
+            document.getElementById('o_age').value,
+            document.getElementById('o_shape').value,
+            document.getElementById('o_color').value,
+            document.getElementById('o_origin').value,
+            document.getElementById('o_material').value,
+            document.getElementById('o_noun').value
+        ].filter(p => p.trim() !== "");
+
+        const od = odParts.join(" ");
+        const prep = document.getElementById('oi_prep').value;
+        const target = document.getElementById('oi_target').value;
+        let oi = "";
+
+        if(prep && target) {
+            oi = `${prep} ${target}`;
+        }
+
+        const fullPhrase = [od, oi].filter(p => p.trim() !== "").join(" ");
+        document.getElementById('osascomResult').textContent = fullPhrase || "Selecciona los componentes...";
+    }
+
+    function applyObject() {
+        const phrase = document.getElementById('osascomResult').textContent;
+        if(phrase && phrase !== "Selecciona los componentes...") {
+            document.getElementById('inputObject').value = phrase;
+        }
+        closeModal('osascomModal');
+    }
+
+    function selectManner(val) { document.getElementById('inputManner').value = val; closeModal('mannerModal'); }
+    function selectPlace(val) { document.getElementById('inputPlace').value = val; closeModal('placeModal'); }
+    function selectTime(val) { document.getElementById('inputTime').value = val; closeModal('timeModal'); }
+    function selectReason(val) { document.getElementById('inputReason').value = val; closeModal('reasonModal'); }
+    function selectBridge(val) { document.getElementById('inputBridge').value = val; closeModal('bridgeModal'); }
+
+    document.addEventListener('DOMContentLoaded', initApp);
+</script>
+</body>
+</html>

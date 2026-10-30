@@ -1,0 +1,1069 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The English Builder Machine™ - Build English, Step by Step</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            blue: '#1E40AF',
+                            sky: '#0284C7',
+                            yellow: '#F59E0B',
+                            red: '#EF4444',
+                            teal: '#14B8A6',
+                            orange: '#F97316',
+                            purple: '#8B5CF6',
+                            pink: '#EC4899',
+                            green: '#10B981',
+                            lightBg: '#F8FAFC'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .block-shadow {
+            box-shadow: 0 6px 0 0 rgba(0,0,0,0.25);
+            transition: all 0.2s ease;
+        }
+        .block-shadow:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 9px 0 0 rgba(0,0,0,0.25);
+        }
+        .block-shadow:active {
+            transform: translateY(2px);
+            box-shadow: 0 2px 0 0 rgba(0,0,0,0.25);
+        }
+        
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 5px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+    </style>
+</head>
+<body class="font-sans bg-slate-50 text-slate-800 antialiased selection:bg-brand-yellow selection:text-slate-900">
+
+    <!-- 1. HEADER / NAVIGATION -->
+    <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <!-- Logo -->
+                <a href="#" class="flex items-center gap-3 group">
+                    <div class="w-12 h-12 bg-brand-blue rounded-xl flex items-center justify-center text-white font-black text-xl shadow-md group-hover:scale-105 transition-transform border-2 border-brand-yellow">
+                        <i class="fa-solid fa-cubes text-brand-yellow text-2xl"></i>
+                    </div>
+                    <div class="flex flex-col">
+                        <span class="font-black text-xl tracking-tight leading-none text-slate-900">THE ENGLISH</span>
+                        <span class="font-black text-lg tracking-wider text-brand-sky leading-none">BUILDER MACHINE<span class="text-xs text-brand-yellow align-top">™</span></span>
+                    </div>
+                </a>
+
+                <!-- Desktop Navigation -->
+                <nav class="hidden md:flex items-center space-x-6 text-sm font-semibold text-slate-700">
+                    <a href="#home" class="hover:text-brand-blue transition-colors">Home</a>
+                    <a href="#method" class="hover:text-brand-blue transition-colors">The Method</a>
+                    <a href="#boardgame" class="hover:text-brand-blue transition-colors">Board Game</a>
+                    <a href="#resources" class="hover:text-brand-blue transition-colors">Resources</a>
+                    <a href="#community" class="hover:text-brand-blue transition-colors">Community</a>
+                    <a href="#story" class="hover:text-brand-blue transition-colors">Story</a>
+                    <a href="#contact" class="hover:text-brand-blue transition-colors">Contact</a>
+                </nav>
+
+                <!-- Actions: Search, Cart, CTA -->
+                <div class="flex items-center gap-3">
+                    <button onclick="toggleModal('searchModal')" class="p-2.5 text-slate-600 hover:text-brand-blue hover:bg-slate-100 rounded-full transition-all" title="Search">
+                        <i class="fa-solid fa-magnifying-glass text-lg"></i>
+                    </button>
+                    
+                    <button onclick="toggleCartModal()" class="p-2.5 text-slate-600 hover:text-brand-blue hover:bg-slate-100 rounded-full transition-all relative" title="Shopping Cart">
+                        <i class="fa-solid fa-cart-shopping text-lg"></i>
+                        <span id="cartCount" class="absolute top-1 right-1 bg-brand-red text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center shadow">1</span>
+                    </button>
+
+                    <!-- Mobile Menu Button -->
+                    <button id="menuToggleBtn" class="md:hidden p-2 text-slate-700 hover:text-brand-blue">
+                        <i class="fa-solid fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Navigation -->
+        <div id="mobileMenu" class="hidden md:hidden bg-white border-b border-slate-200 px-4 pt-2 pb-6 space-y-3">
+            <a href="#home" class="block py-2 text-slate-700 font-semibold hover:text-brand-blue">Home</a>
+            <a href="#method" class="block py-2 text-slate-700 font-semibold hover:text-brand-blue">The Method</a>
+            <a href="#boardgame" class="block py-2 text-slate-700 font-semibold hover:text-brand-blue">Board Game</a>
+            <a href="#resources" class="block py-2 text-slate-700 font-semibold hover:text-brand-blue">Resources</a>
+            <a href="#community" class="block py-2 text-slate-700 font-semibold hover:text-brand-blue">Community</a>
+            <a href="#story" class="block py-2 text-slate-700 font-semibold hover:text-brand-blue">Story</a>
+            <a href="#contact" class="block py-2 text-slate-700 font-semibold hover:text-brand-blue">Contact</a>
+        </div>
+    </header>
+
+    <!-- BANNER PROMO -->
+    <div class="bg-gradient-to-r from-brand-yellow via-amber-400 to-brand-orange py-2 px-4 text-center text-slate-900 font-bold text-xs sm:text-sm tracking-wide shadow-inner flex items-center justify-center gap-2">
+        <i class="fa-solid fa-trophy"></i>
+        <span>TURN GRAMMAR INTO A GAME • TURN LEARNING INTO AN ADVENTURE!</span>
+    </div>
+
+    <!-- 2. HERO SECTION -->
+    <section id="home" class="py-12 md:py-20 bg-gradient-to-b from-sky-50/80 via-white to-slate-50 relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid lg:grid-cols-12 gap-12 items-center">
+                
+                <!-- Left Content -->
+                <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
+                    <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-brand-sky/10 border border-brand-sky/20 text-brand-sky font-bold text-xs sm:text-sm">
+                        <i class="fa-solid fa-puzzle-piece"></i> Visual Learning Framework
+                    </div>
+
+                    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-slate-900 tracking-tight leading-tight">
+                        The English <br class="hidden sm:inline"/>
+                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-blue via-brand-sky to-brand-teal">
+                            Builder Machine™
+                        </span>
+                    </h1>
+
+                    <p class="text-xl sm:text-2xl font-bold text-slate-700">
+                        Build English. Understand English. Think in English.
+                    </p>
+
+                    <p class="text-slate-600 text-base sm:text-lg max-w-2xl mx-auto lg:mx-0 leading-relaxed">
+                        A visual English learning system that helps students build, understand, and practice English using modular sentence blocks, educational characters, interactive infographics, and <strong>The English Master Board Game™</strong>.
+                    </p>
+
+                    <!-- CTAs -->
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start pt-4">
+                        <a href="#method" class="px-8 py-4 bg-brand-orange hover:bg-orange-600 text-white font-extrabold rounded-xl shadow-lg hover:shadow-orange-200 transition-all text-center block-shadow border-2 border-orange-700">
+                            <i class="fa-solid fa-compass mr-2"></i> Explore the System
+                        </a>
+                        <a href="#boardgame" class="px-8 py-4 bg-brand-blue hover:bg-blue-800 text-white font-extrabold rounded-xl shadow-lg hover:shadow-blue-200 transition-all text-center block-shadow border-2 border-blue-900">
+                            <i class="fa-solid fa-dice mr-2"></i> The Board Game
+                        </a>
+                    </div>
+
+                    <!-- Highlight phrase -->
+                    <div class="pt-6 flex items-center justify-center lg:justify-start gap-3 text-slate-600 text-sm italic font-medium">
+                        <div class="w-8 h-8 rounded-full bg-brand-yellow flex items-center justify-center text-slate-900 font-bold not-italic">
+                            <i class="fa-solid fa-quote-left"></i>
+                        </div>
+                        <span>"English is built one block at a time!"</span>
+                    </div>
+                </div>
+
+                <!-- Right Tower Graphic Visual -->
+                <div class="lg:col-span-5 flex flex-col items-center justify-center">
+                    <div class="w-full max-w-md bg-white/60 p-6 rounded-3xl border border-slate-200/80 backdrop-blur shadow-xl relative">
+                        <div class="text-center mb-4">
+                            <span class="text-xs font-bold uppercase tracking-wider text-slate-400">Interactive Concept Tower</span>
+                            <p class="text-xs text-slate-500">Click a block to learn its core principle!</p>
+                        </div>
+
+                        <!-- Stacked Interactive Blocks Tower -->
+                        <div class="flex flex-col-reverse gap-3 items-center">
+                            
+                            <!-- Block 1: REAL ENGLISH -->
+                            <button onclick="revealHeroBlock('REAL ENGLISH', 'Confidently express yourself in real-world scenarios, conversations, and professional settings without hesitation.', 'bg-emerald-500')" 
+                                    class="w-full py-3.5 px-6 bg-emerald-500 text-white font-black text-center rounded-xl block-shadow border-2 border-emerald-700 flex items-center justify-between group">
+                                <i class="fa-solid fa-comments text-xl group-hover:scale-125 transition-transform"></i>
+                                <span class="tracking-widest text-lg">REAL ENGLISH</span>
+                                <i class="fa-solid fa-chevron-right text-xs opacity-60"></i>
+                            </button>
+
+                            <!-- Block 2: CONFIDENCE -->
+                            <button onclick="revealHeroBlock('CONFIDENCE', 'Overcome grammar anxiety by visualizing exact structures and eliminating second-guessing.', 'bg-teal-500')" 
+                                    class="w-11/12 py-3.5 px-6 bg-teal-500 text-white font-black text-center rounded-xl block-shadow border-2 border-teal-700 flex items-center justify-between group">
+                                <i class="fa-solid fa-shield-halved text-xl group-hover:scale-125 transition-transform"></i>
+                                <span class="tracking-widest text-lg">CONFIDENCE</span>
+                                <i class="fa-solid fa-chevron-right text-xs opacity-60"></i>
+                            </button>
+
+                            <!-- Block 3: GRAMMAR -->
+                            <button onclick="revealHeroBlock('GRAMMAR', 'Master tenses, auxiliary verbs, and descriptors with tactile, color-coded components.', 'bg-brand-yellow')" 
+                                    class="w-10/12 py-3.5 px-6 bg-brand-yellow text-slate-900 font-black text-center rounded-xl block-shadow border-2 border-amber-600 flex items-center justify-between group">
+                                <i class="fa-solid fa-cubes text-xl group-hover:scale-125 transition-transform"></i>
+                                <span class="tracking-widest text-lg">GRAMMAR</span>
+                                <i class="fa-solid fa-chevron-right text-xs opacity-60"></i>
+                            </button>
+
+                            <!-- Block 4: IDEAS -->
+                            <button onclick="revealHeroBlock('IDEAS', 'Connect concepts logically instead of translating word-for-word from your native language.', 'bg-brand-orange')" 
+                                    class="w-9/12 py-3.5 px-6 bg-brand-orange text-white font-black text-center rounded-xl block-shadow border-2 border-orange-700 flex items-center justify-between group">
+                                <i class="fa-solid fa-lightbulb text-xl group-hover:scale-125 transition-transform"></i>
+                                <span class="tracking-widest text-base">IDEAS</span>
+                                <i class="fa-solid fa-chevron-right text-xs opacity-60"></i>
+                            </button>
+
+                            <!-- Block 5: BUILD -->
+                            <button onclick="revealHeroBlock('BUILD', 'Start from the foundation (Subject + Helper) and expand sentence structures step-by-step.', 'bg-brand-blue')" 
+                                    class="w-8/12 py-3.5 px-6 bg-brand-blue text-white font-black text-center rounded-xl block-shadow border-2 border-blue-900 flex items-center justify-between group">
+                                <i class="fa-solid fa-hammer text-xl group-hover:scale-125 transition-transform"></i>
+                                <span class="tracking-widest text-base">BUILD</span>
+                                <i class="fa-solid fa-chevron-right text-xs opacity-60"></i>
+                            </button>
+                        </div>
+
+                        <!-- Info Display Panel -->
+                        <div id="heroBlockInfo" class="mt-6 p-4 rounded-xl bg-slate-900 text-white text-xs sm:text-sm border border-slate-700 transition-all">
+                            <span class="font-bold text-brand-yellow block mb-1" id="heroBlockTitle">🎯 Click any block above</span>
+                            <p id="heroBlockDesc" class="text-slate-300">Discover how each block in the Builder Machine framework shapes your path to fluency.</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. THE PROBLEM SECTION -->
+    <section class="py-16 bg-white border-y border-slate-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-12">
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">Why Is English So Hard?</h2>
+                <p class="mt-3 text-lg text-slate-600">Traditional learning overwhelms students with abstract rules and rote memorization.</p>
+            </div>
+
+            <!-- Problem Cards -> Solution Banner -->
+            <div class="grid md:grid-cols-3 gap-6 mb-12">
+                <!-- Card 1 -->
+                <div class="bg-red-50/60 p-6 rounded-2xl border-2 border-red-200 text-center hover:shadow-md transition-all">
+                    <div class="w-16 h-16 bg-red-500 text-white rounded-2xl flex items-center justify-center mx-auto mb-4 text-2xl shadow-sm">
+                        <i class="fa-solid fa-book-bookmark"></i>
+                    </div>
+                    <h3 class="font-bold text-xl text-slate-900 mb-2">Too Many Rules</h3>
+                    <p class="text-slate-600 text-sm">Endless grammar tables and confusing terminology make starting a sentence feel daunting.</p>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="bg-orange-50/60 p-6 rounded-2xl border-2 border-orange-200 text-center hover:shadow-md transition-all">
+                    <div class="w-16 h-16 bg-orange-500 text-white rounded-2xl flex items-center justify-center mx-auto mb-4 text-2xl shadow-sm">
+                        <i class="fa-solid fa-brain"></i>
+                    </div>
+                    <h3 class="font-bold text-xl text-slate-900 mb-2">Too Much Memorization</h3>
+                    <p class="text-slate-600 text-sm">Rote learning leads to mental translation bottlenecks during live, fast-paced conversations.</p>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="bg-amber-50/60 p-6 rounded-2xl border-2 border-amber-200 text-center hover:shadow-md transition-all">
+                    <div class="w-16 h-16 bg-amber-500 text-white rounded-2xl flex items-center justify-center mx-auto mb-4 text-2xl shadow-sm">
+                        <i class="fa-solid fa-triangle-exclamation"></i>
+                    </div>
+                    <h3 class="font-bold text-xl text-slate-900 mb-2">Too Many Exceptions</h3>
+                    <p class="text-slate-600 text-sm">Irregular verbs and unpredictable sentence shifts create fear of making embarrassing mistakes.</p>
+                </div>
+            </div>
+
+            <!-- The Solution CTA Banner -->
+            <div class="bg-gradient-to-r from-brand-blue to-brand-sky text-white rounded-3xl p-8 text-center shadow-xl relative overflow-hidden flex flex-col md:flex-row items-center justify-between gap-6">
+                <div class="text-left space-y-2">
+                    <span class="text-brand-yellow font-bold text-sm tracking-wider uppercase"><i class="fa-solid fa-wand-magic-sparkles mr-1"></i> The Paradigm Shift</span>
+                    <h3 class="text-2xl sm:text-3xl font-extrabold">What if English could be BUILT instead?</h3>
+                    <p class="text-blue-100 text-sm sm:text-base">Assembly with tactile modules makes structure instant, intuitive, and unforgettable.</p>
+                </div>
+                <a href="#method" class="px-8 py-3.5 bg-brand-yellow hover:bg-amber-400 text-slate-900 font-extrabold rounded-xl shadow-lg block-shadow border-2 border-amber-600 whitespace-nowrap text-sm sm:text-base">
+                    See How It Works <i class="fa-solid fa-arrow-right ml-2"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. HOW IT WORKS & CORE MACHINE MODULES (INTERACTIVE BUILDER) -->
+    <section id="method" class="py-16 bg-slate-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-12">
+                <div class="inline-flex items-center gap-2 px-3 py-1 bg-brand-blue/10 text-brand-blue font-bold rounded-full text-xs mb-3">
+                    <i class="fa-solid fa-sliders"></i> Interactive Machine Engine
+                </div>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">How It Works: Core Machine Modules</h2>
+                <p class="mt-3 text-slate-600">Every English sentence is built from these modular color-coded components. Try clicking or toggling them below to construct sentences live!</p>
+            </div>
+
+            <!-- Modular Formula Palette -->
+            <div class="mb-8">
+                <div class="flex items-center justify-between mb-3">
+                    <span class="text-xs font-bold text-slate-500 uppercase tracking-wider">Module Blocks Palette</span>
+                    <button onclick="resetBuilder()" class="text-xs font-bold text-brand-blue hover:underline">
+                        <i class="fa-solid fa-rotate-left mr-1"></i> Reset Formula
+                    </button>
+                </div>
+
+                <!-- Color-Coded Modules Palette Grid -->
+                <div class="grid grid-cols-2 sm:grid-cols-5 lg:grid-cols-10 gap-2" id="modulesPalette">
+                    <!-- S - Subject -->
+                    <button onclick="toggleModule('subject')" id="btn-subject" class="p-3 bg-sky-500 text-white rounded-xl text-center shadow-sm block-shadow border-2 border-sky-700 transition-all">
+                        <span class="block text-xs font-extrabold opacity-80">S</span>
+                        <span class="block font-black text-sm">Subject</span>
+                    </button>
+
+                    <!-- AUX - Helper -->
+                    <button onclick="toggleModule('aux')" id="btn-aux" class="p-3 bg-emerald-500 text-white rounded-xl text-center shadow-sm block-shadow border-2 border-emerald-700 transition-all">
+                        <span class="block text-xs font-extrabold opacity-80">AUX</span>
+                        <span class="block font-black text-sm">Helper</span>
+                    </button>
+
+                    <!-- FRQ - Frequency -->
+                    <button onclick="toggleModule('frq')" id="btn-frq" class="p-3 bg-amber-400 text-slate-900 rounded-xl text-center shadow-sm block-shadow border-2 border-amber-600 transition-all">
+                        <span class="block text-xs font-extrabold opacity-80">FRQ</span>
+                        <span class="block font-black text-sm">Frequency</span>
+                    </button>
+
+                    <!-- V - Verb -->
+                    <button onclick="toggleModule('verb')" id="btn-verb" class="p-3 bg-red-500 text-white rounded-xl text-center shadow-sm block-shadow border-2 border-red-700 transition-all">
+                        <span class="block text-xs font-extrabold opacity-80">V</span>
+                        <span class="block font-black text-sm">Verb</span>
+                    </button>
+
+                    <!-- OD/ID - Object -->
+                    <button onclick="toggleModule('object')" id="btn-object" class="p-3 bg-purple-500 text-white rounded-xl text-center shadow-sm block-shadow border-2 border-purple-700 transition-all">
+                        <span class="block text-xs font-extrabold opacity-80">OD/ID</span>
+                        <span class="block font-black text-sm">Object</span>
+                    </button>
+
+                    <!-- OSASCOM - Descriptors -->
+                    <button onclick="toggleModule('descriptors')" id="btn-descriptors" class="p-3 bg-orange-500 text-white rounded-xl text-center shadow-sm block-shadow border-2 border-orange-700 transition-all">
+                        <span class="block text-xs font-extrabold opacity-80">OSASCOM</span>
+                        <span class="block font-black text-xs sm:text-sm">Descriptors</span>
+                    </button>
+
+                    <!-- Pirry's - Questions -->
+                    <button onclick="toggleModule('questions')" id="btn-questions" class="p-3 bg-pink-500 text-white rounded-xl text-center shadow-sm block-shadow border-2 border-pink-700 transition-all">
+                        <span class="block text-xs font-extrabold opacity-80">PIRRY'S</span>
+                        <span class="block font-black text-xs sm:text-sm">Questions</span>
+                    </button>
+
+                    <!-- Timmy - Time -->
+                    <button onclick="toggleModule('time')" id="btn-time" class="p-3 bg-indigo-500 text-white rounded-xl text-center shadow-sm block-shadow border-2 border-indigo-700 transition-all">
+                        <span class="block text-xs font-extrabold opacity-80">TIMMY</span>
+                        <span class="block font-black text-sm">Time</span>
+                    </button>
+
+                    <!-- WHY? - Purpose -->
+                    <button onclick="toggleModule('purpose')" id="btn-purpose" class="p-3 bg-teal-500 text-white rounded-xl text-center shadow-sm block-shadow border-2 border-teal-700 transition-all">
+                        <span class="block text-xs font-extrabold opacity-80">WHY?</span>
+                        <span class="block font-black text-sm">Purpose</span>
+                    </button>
+
+                    <!-- Bridge - Connectors -->
+                    <button onclick="toggleModule('bridge')" id="btn-bridge" class="p-3 bg-slate-600 text-white rounded-xl text-center shadow-sm block-shadow border-2 border-slate-800 transition-all">
+                        <span class="block text-xs font-extrabold opacity-80">BRIDGE</span>
+                        <span class="block font-black text-xs sm:text-sm">Connectors</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- LIVE SENTENCE PREVIEW WORKSPACE -->
+            <div class="bg-white rounded-3xl p-6 sm:p-8 border-2 border-slate-200 shadow-xl space-y-6">
+                <div class="flex flex-wrap items-center justify-between gap-4 border-b border-slate-100 pb-4">
+                    <div>
+                        <h3 class="text-lg font-bold text-slate-900">Live Machine Assembly Workspace</h3>
+                        <p class="text-xs text-slate-500">Pick preset sentences or click word chips to modify active slots!</p>
+                    </div>
+
+                    <!-- Presets Selector -->
+                    <div class="flex items-center gap-2">
+                        <span class="text-xs font-bold text-slate-500">Preset:</span>
+                        <select id="presetSelect" onchange="loadPreset(this.value)" class="text-xs font-bold bg-slate-100 border border-slate-300 rounded-lg p-2 focus:ring-2 focus:ring-brand-blue outline-none">
+                            <option value="1">Affirmative Sentence</option>
+                            <option value="2">Question with Auxiliary</option>
+                            <option value="3">Complex Sentence with Time & Purpose</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Active Sentence Builder Visual Blocks Line -->
+                <div class="flex flex-wrap items-center gap-3 min-h-[80px] p-4 bg-slate-50 rounded-2xl border border-dashed border-slate-300" id="sentenceBlocksContainer">
+                    <!-- Blocks injected dynamically via JS -->
+                </div>
+
+                <!-- Final Compiled Result Box -->
+                <div class="bg-slate-900 rounded-2xl p-6 text-white flex flex-col sm:flex-row items-center justify-between gap-4">
+                    <div class="space-y-1 text-center sm:text-left">
+                        <span class="text-xs font-bold text-brand-yellow uppercase tracking-wider"><i class="fa-solid fa-circle-check text-emerald-400 mr-1"></i> Assembled English Output:</span>
+                        <p id="assembledSentence" class="text-xl sm:text-2xl font-black text-white tracking-wide">"..."</p>
+                    </div>
+                    <button onclick="speakSentence()" class="px-5 py-2.5 bg-brand-yellow hover:bg-amber-400 text-slate-900 font-extrabold rounded-xl shadow block-shadow border-2 border-amber-600 text-xs sm:text-sm flex items-center gap-2 whitespace-nowrap">
+                        <i class="fa-solid fa-volume-high text-base"></i> Listen Pronunciation
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. MEET THE CHARACTERS -->
+    <section class="py-16 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-12">
+                <div class="inline-flex items-center gap-2 px-3 py-1 bg-brand-orange/10 text-brand-orange font-bold rounded-full text-xs mb-3">
+                    <i class="fa-solid fa-users"></i> Learning Guides
+                </div>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">Meet the Characters</h2>
+                <p class="mt-3 text-slate-600">Educational companions designed to make abstract grammar concepts intuitive and memorable.</p>
+            </div>
+
+            <!-- Character Grid -->
+            <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Character 1: The Builder -->
+                <div class="bg-slate-50 rounded-2xl p-6 border-2 border-sky-200 hover:border-sky-500 transition-all hover:shadow-lg flex flex-col items-center text-center group">
+                    <div class="w-24 h-24 bg-sky-100 rounded-full border-4 border-sky-400 flex items-center justify-center mb-4 text-sky-600 text-4xl shadow-inner group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-helmet-safety"></i>
+                    </div>
+                    <span class="px-3 py-1 bg-sky-500 text-white font-extrabold text-xs rounded-full uppercase tracking-wider mb-2">Subject Foundation</span>
+                    <h3 class="text-xl font-extrabold text-slate-900">The Builder</h3>
+                    <p class="text-xs text-slate-600 mt-2 leading-relaxed">
+                        Represents the <strong>Subject</strong> block. He lays down the foundation of who performs the action in every sentence.
+                    </p>
+                </div>
+
+                <!-- Character 2: Helper -->
+                <div class="bg-slate-50 rounded-2xl p-6 border-2 border-emerald-200 hover:border-emerald-500 transition-all hover:shadow-lg flex flex-col items-center text-center group">
+                    <div class="w-24 h-24 bg-emerald-100 rounded-full border-4 border-emerald-400 flex items-center justify-center mb-4 text-emerald-600 text-4xl shadow-inner group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-robot"></i>
+                    </div>
+                    <span class="px-3 py-1 bg-emerald-500 text-white font-extrabold text-xs rounded-full uppercase tracking-wider mb-2">Auxiliary Verbs</span>
+                    <h3 class="text-xl font-extrabold text-slate-900">Helper</h3>
+                    <p class="text-xs text-slate-600 mt-2 leading-relaxed">
+                        Supports sentence structure with <strong>Auxiliary verbs</strong> (do, does, did, can, will) to handle tense and questions.
+                    </p>
+                </div>
+
+                <!-- Character 3: Pirry's Explorer -->
+                <div class="bg-slate-50 rounded-2xl p-6 border-2 border-pink-200 hover:border-pink-500 transition-all hover:shadow-lg flex flex-col items-center text-center group">
+                    <div class="w-24 h-24 bg-pink-100 rounded-full border-4 border-pink-400 flex items-center justify-center mb-4 text-pink-600 text-4xl shadow-inner group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-compass-drafting"></i>
+                    </div>
+                    <span class="px-3 py-1 bg-pink-500 text-white font-extrabold text-xs rounded-full uppercase tracking-wider mb-2">Questions & Discovery</span>
+                    <h3 class="text-xl font-extrabold text-slate-900">Pirry's Explorer</h3>
+                    <p class="text-xs text-slate-600 mt-2 leading-relaxed">
+                        Guides question formation (Wh- words: Who, What, Where, Why) and encourages curiosity and pattern exploration.
+                    </p>
+                </div>
+
+                <!-- Character 4: Time Mirror -->
+                <div class="bg-slate-50 rounded-2xl p-6 border-2 border-indigo-200 hover:border-indigo-500 transition-all hover:shadow-lg flex flex-col items-center text-center group">
+                    <div class="w-24 h-24 bg-indigo-100 rounded-full border-4 border-indigo-400 flex items-center justify-center mb-4 text-indigo-600 text-4xl shadow-inner group-hover:scale-110 transition-transform">
+                        <i class="fa-solid fa-clock-rotate-left"></i>
+                    </div>
+                    <span class="px-3 py-1 bg-indigo-500 text-white font-extrabold text-xs rounded-full uppercase tracking-wider mb-2">Tenses & Timing</span>
+                    <h3 class="text-xl font-extrabold text-slate-900">Time Mirror</h3>
+                    <p class="text-xs text-slate-600 mt-2 leading-relaxed">
+                        Reflects the timeline and shows exactly when the action takes place (Past, Present, Future, Continuous).
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 6. THE ENGLISH MASTER BOARD GAME SPOTLIGHT -->
+    <section id="boardgame" class="py-16 bg-gradient-to-br from-slate-900 via-blue-950 to-slate-900 text-white relative overflow-hidden">
+        <!-- Accent Glow background -->
+        <div class="absolute -top-24 -left-24 w-96 h-96 bg-brand-sky/20 rounded-full blur-3xl pointer-events-none"></div>
+        
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid lg:grid-cols-12 gap-12 items-center">
+                
+                <!-- Product Information -->
+                <div class="lg:col-span-6 space-y-6">
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-yellow/20 text-brand-yellow border border-brand-yellow/30 font-bold text-xs">
+                        <i class="fa-solid fa-dice-d6"></i> Flagship Product
+                    </div>
+
+                    <h2 class="text-3xl sm:text-5xl font-black tracking-tight leading-tight">
+                        The English Master <br class="hidden sm:inline"/>
+                        <span class="text-brand-yellow">Board Game</span>
+                    </h2>
+
+                    <p class="text-xl font-bold text-sky-200">Learn English through play! Roll. Build. Practice. Win.</p>
+
+                    <div class="space-y-3 pt-2">
+                        <div class="flex items-center gap-3">
+                            <div class="w-7 h-7 rounded-full bg-emerald-500 text-white flex items-center justify-center font-bold text-xs"><i class="fa-solid fa-check"></i></div>
+                            <span class="text-slate-200 font-medium text-sm sm:text-base">Physical board game with tactile cards & color tiles</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <div class="w-7 h-7 rounded-full bg-emerald-500 text-white flex items-center justify-center font-bold text-xs"><i class="fa-solid fa-check"></i></div>
+                            <span class="text-slate-200 font-medium text-sm sm:text-base">Educational and engaging for all learning ages</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <div class="w-7 h-7 rounded-full bg-emerald-500 text-white flex items-center justify-center font-bold text-xs"><i class="fa-solid fa-check"></i></div>
+                            <span class="text-slate-200 font-medium text-sm sm:text-base">Designed for students, teachers, and family game nights</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <div class="w-7 h-7 rounded-full bg-emerald-500 text-white flex items-center justify-center font-bold text-xs"><i class="fa-solid fa-check"></i></div>
+                            <span class="text-slate-200 font-medium text-sm sm:text-base">Develops real speaking skills without textbook boredom</span>
+                        </div>
+                    </div>
+
+                    <div class="pt-4 flex flex-wrap items-center gap-4">
+                        <button onclick="openBoardGameModal()" class="px-8 py-4 bg-brand-yellow hover:bg-amber-400 text-slate-900 font-extrabold rounded-xl shadow-xl block-shadow border-2 border-amber-600 text-base">
+                            <i class="fa-solid fa-circle-info mr-2"></i> Learn More / Pre-Order
+                        </button>
+                        <span class="text-xs text-sky-300 font-semibold italic">"Same rules. Different sentences. Every game!"</span>
+                    </div>
+                </div>
+
+                <!-- Product Box Visual Graphic -->
+                <div class="lg:col-span-6 flex justify-center">
+                    <div class="relative group max-w-md w-full">
+                        <div class="bg-gradient-to-tr from-brand-blue to-brand-sky p-8 rounded-3xl border-4 border-brand-yellow/40 shadow-2xl relative text-center space-y-6">
+                            
+                            <div class="inline-block bg-brand-yellow text-slate-900 font-black text-xs px-4 py-1.5 rounded-full shadow border border-amber-500 uppercase tracking-widest">
+                                Powered by English Builder Machine™
+                            </div>
+
+                            <div class="py-12 bg-slate-900/50 rounded-2xl border border-white/10 flex flex-col items-center justify-center space-y-3">
+                                <i class="fa-solid fa-box-open text-6xl text-brand-yellow group-hover:scale-110 transition-transform duration-300"></i>
+                                <span class="font-extrabold text-2xl tracking-wide text-white">THE BOARD GAME</span>
+                                <p class="text-xs text-slate-300 max-w-xs">Includes 200+ Sentence Modules, Dice, Builder Tokens & Master Board</p>
+                            </div>
+
+                            <div class="flex justify-around text-xs font-bold text-sky-200 border-t border-white/10 pt-4">
+                                <div><i class="fa-solid fa-users text-brand-yellow mr-1"></i> 2 - 6 Players</div>
+                                <div><i class="fa-solid fa-clock text-brand-yellow mr-1"></i> 25-45 Mins</div>
+                                <div><i class="fa-solid fa-graduation-cap text-brand-yellow mr-1"></i> Ages 8+</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- 7. RESOURCES SECTION -->
+    <section id="resources" class="py-16 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-12">
+                <div class="inline-flex items-center gap-2 px-3 py-1 bg-brand-teal/10 text-brand-teal font-bold rounded-full text-xs mb-3">
+                    <i class="fa-solid fa-download"></i> Downloads & Study Materials
+                </div>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">Free & Premium Resources</h2>
+                <p class="mt-3 text-slate-600">Enhance your learning or teaching with official visual aids, infographics, and practice sheets.</p>
+            </div>
+
+            <!-- Download Grid -->
+            <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Infographics -->
+                <div class="bg-slate-50 p-6 rounded-2xl border border-slate-200 text-center hover:shadow-lg transition-all flex flex-col justify-between">
+                    <div>
+                        <div class="w-14 h-14 bg-blue-100 text-brand-blue rounded-2xl flex items-center justify-center mx-auto mb-4 text-2xl">
+                            <i class="fa-solid fa-file-image"></i>
+                        </div>
+                        <h3 class="font-extrabold text-lg text-slate-900">Infographics</h3>
+                        <p class="text-xs text-slate-500 mt-2">Visual grammar maps and module formula reference cheatsheets.</p>
+                    </div>
+                    <button onclick="downloadAlert('Infographics Bundle')" class="mt-6 w-full py-2.5 bg-slate-900 hover:bg-brand-blue text-white font-bold rounded-xl text-xs transition-colors">
+                        <i class="fa-solid fa-arrow-down-to-line mr-1"></i> Download PDF
+                    </button>
+                </div>
+
+                <!-- Posters -->
+                <div class="bg-slate-50 p-6 rounded-2xl border border-slate-200 text-center hover:shadow-lg transition-all flex flex-col justify-between">
+                    <div>
+                        <div class="w-14 h-14 bg-amber-100 text-brand-yellow rounded-2xl flex items-center justify-center mx-auto mb-4 text-2xl">
+                            <i class="fa-solid fa-map"></i>
+                        </div>
+                        <h3 class="font-extrabold text-lg text-slate-900">Classroom Posters</h3>
+                        <p class="text-xs text-slate-500 mt-2">High-resolution printable posters featuring all Builder characters.</p>
+                    </div>
+                    <button onclick="downloadAlert('Classroom Poster Pack')" class="mt-6 w-full py-2.5 bg-slate-900 hover:bg-brand-blue text-white font-bold rounded-xl text-xs transition-colors">
+                        <i class="fa-solid fa-arrow-down-to-line mr-1"></i> Download PDF
+                    </button>
+                </div>
+
+                <!-- Worksheets -->
+                <div class="bg-slate-50 p-6 rounded-2xl border border-slate-200 text-center hover:shadow-lg transition-all flex flex-col justify-between">
+                    <div>
+                        <div class="w-14 h-14 bg-emerald-100 text-brand-green rounded-2xl flex items-center justify-center mx-auto mb-4 text-2xl">
+                            <i class="fa-solid fa-file-pen"></i>
+                        </div>
+                        <h3 class="font-extrabold text-lg text-slate-900">Worksheets</h3>
+                        <p class="text-xs text-slate-500 mt-2">Sentence structure fill-in exercises and color-coding challenges.</p>
+                    </div>
+                    <button onclick="downloadAlert('Practice Worksheets Pack')" class="mt-6 w-full py-2.5 bg-slate-900 hover:bg-brand-blue text-white font-bold rounded-xl text-xs transition-colors">
+                        <i class="fa-solid fa-arrow-down-to-line mr-1"></i> Download PDF
+                    </button>
+                </div>
+
+                <!-- Flash Cards -->
+                <div class="bg-slate-50 p-6 rounded-2xl border border-slate-200 text-center hover:shadow-lg transition-all flex flex-col justify-between">
+                    <div>
+                        <div class="w-14 h-14 bg-purple-100 text-brand-purple rounded-2xl flex items-center justify-center mx-auto mb-4 text-2xl">
+                            <i class="fa-solid fa-cards-blank"></i>
+                        </div>
+                        <h3 class="font-extrabold text-lg text-slate-900">Flash Cards</h3>
+                        <p class="text-xs text-slate-500 mt-2">Printable vocabulary and auxiliary verb cards categorized by color.</p>
+                    </div>
+                    <button onclick="downloadAlert('Flash Cards Collection')" class="mt-6 w-full py-2.5 bg-slate-900 hover:bg-brand-blue text-white font-bold rounded-xl text-xs transition-colors">
+                        <i class="fa-solid fa-arrow-down-to-line mr-1"></i> Download PDF
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 8. COMMUNITY SECTION -->
+    <section id="community" class="py-16 bg-slate-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-12">
+                <div class="inline-flex items-center gap-2 px-3 py-1 bg-brand-purple/10 text-brand-purple font-bold rounded-full text-xs mb-3">
+                    <i class="fa-solid fa-people-group"></i> Global Movement
+                </div>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">Join the Builder Community</h2>
+                <p class="mt-3 text-slate-600">Connect with students and educators worldwide. Share your progress, earn awards, and inspire others.</p>
+            </div>
+
+            <!-- Community Highlights Grid -->
+            <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 text-center shadow-sm">
+                    <i class="fa-solid fa-video text-3xl text-brand-red mb-3"></i>
+                    <h3 class="font-bold text-slate-900 text-base">Video Challenges</h3>
+                    <p class="text-xs text-slate-500 mt-1">Submit your 30-second sentence building videos weekly.</p>
+                </div>
+
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 text-center shadow-sm">
+                    <i class="fa-solid fa-award text-3xl text-brand-yellow mb-3"></i>
+                    <h3 class="font-bold text-slate-900 text-base">Builder Awards</h3>
+                    <p class="text-xs text-slate-500 mt-1">Earn official badges and certificates as you master new modules.</p>
+                </div>
+
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 text-center shadow-sm">
+                    <i class="fa-solid fa-star text-3xl text-brand-orange mb-3"></i>
+                    <h3 class="font-bold text-slate-900 text-base">Hall of Fame</h3>
+                    <p class="text-xs text-slate-500 mt-1">Top-ranked sentence builders showcased on our global leaderboard.</p>
+                </div>
+
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 text-center shadow-sm">
+                    <i class="fa-solid fa-heart text-3xl text-brand-pink mb-3"></i>
+                    <h3 class="font-bold text-slate-900 text-base">Student Stories</h3>
+                    <p class="text-xs text-slate-500 mt-1">Real journeys of overcoming language anxiety using the system.</p>
+                </div>
+            </div>
+
+            <!-- CTA -->
+            <div class="text-center">
+                <button onclick="toggleModal('communityModal')" class="px-8 py-4 bg-brand-purple hover:bg-purple-700 text-white font-extrabold rounded-xl shadow-lg block-shadow border-2 border-purple-900">
+                    <i class="fa-solid fa-user-plus mr-2"></i> Join the Community Free
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- 9. THE STORY TIMELINE -->
+    <section id="story" class="py-16 bg-white border-t border-slate-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">The Story</h2>
+                <p class="mt-3 text-slate-600">From an original idea to a global educational movement.</p>
+            </div>
+
+            <!-- Horizontal / Stacked Timeline -->
+            <div class="grid grid-cols-1 md:grid-cols-5 gap-6 relative">
+                
+                <!-- Step 1 -->
+                <div class="bg-slate-50 p-6 rounded-2xl border border-slate-200 relative text-center flex flex-col items-center">
+                    <div class="w-10 h-10 bg-brand-blue text-white rounded-full flex items-center justify-center font-bold mb-4 shadow">1</div>
+                    <h3 class="font-extrabold text-base text-slate-900">The Challenge</h3>
+                    <p class="text-xs text-slate-500 mt-2">Traditional English teaching was felt to be overly complex and rule-heavy.</p>
+                </div>
+
+                <!-- Step 2 -->
+                <div class="bg-slate-50 p-6 rounded-2xl border border-slate-200 relative text-center flex flex-col items-center">
+                    <div class="w-10 h-10 bg-brand-sky text-white rounded-full flex items-center justify-center font-bold mb-4 shadow">2</div>
+                    <h3 class="font-extrabold text-base text-slate-900">The Idea</h3>
+                    <p class="text-xs text-slate-500 mt-2">What if English could be assembled visually like physical building blocks?</p>
+                </div>
+
+                <!-- Step 3 -->
+                <div class="bg-slate-50 p-6 rounded-2xl border border-slate-200 relative text-center flex flex-col items-center">
+                    <div class="w-10 h-10 bg-brand-yellow text-slate-900 rounded-full flex items-center justify-center font-bold mb-4 shadow">3</div>
+                    <h3 class="font-extrabold text-base text-slate-900">The Development</h3>
+                    <p class="text-xs text-slate-500 mt-2">Early spreadsheets, color coding, and classroom prototypes tested live.</p>
+                </div>
+
+                <!-- Step 4 -->
+                <div class="bg-slate-50 p-6 rounded-2xl border border-slate-200 relative text-center flex flex-col items-center">
+                    <div class="w-10 h-10 bg-brand-orange text-white rounded-full flex items-center justify-center font-bold mb-4 shadow">4</div>
+                    <h3 class="font-extrabold text-base text-slate-900">The Board Game</h3>
+                    <p class="text-xs text-slate-500 mt-2">Launching a physical board game experience for hands-on interaction.</p>
+                </div>
+
+                <!-- Step 5 -->
+                <div class="bg-slate-50 p-6 rounded-2xl border border-slate-200 relative text-center flex flex-col items-center">
+                    <div class="w-10 h-10 bg-emerald-500 text-white rounded-full flex items-center justify-center font-bold mb-4 shadow">5</div>
+                    <h3 class="font-extrabold text-base text-slate-900">Today</h3>
+                    <p class="text-xs text-slate-500 mt-2">A growing global community learning English step-by-step.</p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- 10. NEWSLETTER / SUBSCRIPTION -->
+    <section class="py-16 bg-gradient-to-r from-brand-blue via-blue-900 to-slate-900 text-white">
+        <div class="max-w-4xl mx-auto px-4 text-center space-y-6">
+            <div class="w-16 h-16 bg-brand-yellow text-slate-900 rounded-2xl flex items-center justify-center mx-auto text-3xl shadow-lg border-2 border-amber-500">
+                <i class="fa-solid fa-paper-plane"></i>
+            </div>
+            
+            <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight">The English Builder Machine™ is Growing</h2>
+            <p class="text-sky-200 text-sm sm:text-base max-w-xl mx-auto">
+                New learning modules, visual resources, educational characters, and board game content are being added regularly. Subscribe to stay updated!
+            </p>
+
+            <!-- Form -->
+            <form onsubmit="handleSubscribe(event)" class="flex flex-col sm:flex-row gap-3 max-w-md mx-auto pt-2">
+                <input type="email" id="newsletterEmail" required placeholder="Enter your email address" class="px-5 py-3.5 rounded-xl text-slate-900 font-medium text-sm flex-1 outline-none focus:ring-4 focus:ring-brand-yellow">
+                <button type="submit" class="px-8 py-3.5 bg-brand-yellow hover:bg-amber-400 text-slate-900 font-extrabold rounded-xl shadow block-shadow border-2 border-amber-600 whitespace-nowrap text-sm">
+                    Subscribe
+                </button>
+            </form>
+            <p id="subscribeFeedback" class="text-xs text-emerald-400 font-bold hidden"><i class="fa-solid fa-circle-check mr-1"></i> Thank you for subscribing to our updates!</p>
+        </div>
+    </section>
+
+    <!-- 11. FOOTER -->
+    <footer id="contact" class="bg-slate-900 text-slate-400 py-12 border-t border-slate-800 text-xs sm:text-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-6 border-b border-slate-800 pb-8">
+                <!-- Footer Brand -->
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 bg-brand-blue rounded-xl flex items-center justify-center text-white font-black text-lg">
+                        <i class="fa-solid fa-cubes text-brand-yellow"></i>
+                    </div>
+                    <span class="font-extrabold text-white text-base">The English Builder Machine™</span>
+                </div>
+
+                <!-- Nav Links -->
+                <div class="flex flex-wrap justify-center gap-6 font-medium text-slate-300">
+                    <a href="#home" class="hover:text-white transition-colors">Home</a>
+                    <a href="#method" class="hover:text-white transition-colors">The Method</a>
+                    <a href="#boardgame" class="hover:text-white transition-colors">Board Game</a>
+                    <a href="#resources" class="hover:text-white transition-colors">Resources</a>
+                    <a href="#community" class="hover:text-white transition-colors">Community</a>
+                    <a href="#contact" class="hover:text-white transition-colors">Contact</a>
+                </div>
+
+                <!-- Social Icons -->
+                <div class="flex items-center gap-4 text-lg">
+                    <a href="#" class="w-9 h-9 rounded-full bg-slate-800 hover:bg-brand-red text-slate-300 hover:text-white flex items-center justify-center transition-all"><i class="fa-brands fa-youtube"></i></a>
+                    <a href="#" class="w-9 h-9 rounded-full bg-slate-800 hover:bg-pink-600 text-slate-300 hover:text-white flex items-center justify-center transition-all"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#" class="w-9 h-9 rounded-full bg-slate-800 hover:bg-brand-blue text-slate-300 hover:text-white flex items-center justify-center transition-all"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="#" class="w-9 h-9 rounded-full bg-slate-800 hover:bg-sky-500 text-slate-300 hover:text-white flex items-center justify-center transition-all"><i class="fa-brands fa-linkedin-in"></i></a>
+                </div>
+            </div>
+
+            <div class="flex flex-col sm:flex-row items-center justify-between gap-4 text-slate-500">
+                <p>Build English. Understand English. Think in English.</p>
+                <p>© 2026 The English Builder Machine™. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- MODAL 1: BOARD GAME DETAIL & PRE-ORDER -->
+    <div id="boardGameModal" class="fixed inset-0 bg-slate-900/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-white rounded-3xl max-w-lg w-full p-6 sm:p-8 space-y-6 relative text-slate-800 shadow-2xl border-2 border-brand-yellow">
+            <button onclick="closeBoardGameModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-800 text-xl font-bold">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <div class="text-center space-y-2">
+                <div class="w-16 h-16 bg-brand-yellow text-slate-900 rounded-2xl flex items-center justify-center mx-auto text-3xl shadow">
+                    <i class="fa-solid fa-dice"></i>
+                </div>
+                <h3 class="text-2xl font-black text-slate-900">The English Master Board Game</h3>
+                <p class="text-xs text-brand-blue font-bold">Physical Boxed Edition • Version 1.0</p>
+            </div>
+
+            <div class="space-y-3 text-xs sm:text-sm text-slate-600 border-y border-slate-100 py-4">
+                <p><strong>What's inside the box?</strong></p>
+                <ul class="list-disc pl-5 space-y-1">
+                    <li>1x Main Folding Master Board (4-color matrix)</li>
+                    <li>120x Color-coded Sentence Module Tiles</li>
+                    <li>50x Action & Verb Challenge Cards</li>
+                    <li>4x Custom Character Tokens (Builder, Helper, Pirry, Time Mirror)</li>
+                    <li>Rulebook & Quick Start Guide for teachers and parents</li>
+                </ul>
+            </div>
+
+            <div class="flex items-center justify-between">
+                <div>
+                    <span class="text-xs text-slate-400 block">Early Bird Price</span>
+                    <span class="text-2xl font-black text-slate-900">$39.99 <span class="text-xs font-normal text-slate-500 line-through">$49.99</span></span>
+                </div>
+                <button onclick="addToCart('The English Master Board Game', 39.99)" class="px-6 py-3 bg-brand-orange hover:bg-orange-600 text-white font-extrabold rounded-xl shadow block-shadow border-2 border-orange-700 text-sm">
+                    <i class="fa-solid fa-cart-plus mr-1"></i> Add to Cart
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL 2: SEARCH -->
+    <div id="searchModal" class="fixed inset-0 bg-slate-900/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-white rounded-2xl max-w-md w-full p-6 space-y-4 relative">
+            <button onclick="toggleModal('searchModal')" class="absolute top-4 right-4 text-slate-400 hover:text-slate-800 text-xl font-bold">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <h3 class="font-extrabold text-lg text-slate-900">Search Resources & Modules</h3>
+            <input type="text" placeholder="Type keywords e.g. Auxiliaries, Past Tense..." class="w-full p-3 border border-slate-300 rounded-xl text-sm outline-none focus:ring-2 focus:ring-brand-blue">
+            <div class="text-xs text-slate-400">Popular: "The Builder character", "Worksheets", "Frequency Blocks"</div>
+        </div>
+    </div>
+
+    <!-- MODAL 3: COMMUNITY JOIN -->
+    <div id="communityModal" class="fixed inset-0 bg-slate-900/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-white rounded-3xl max-w-md w-full p-6 text-center space-y-4 relative">
+            <button onclick="toggleModal('communityModal')" class="absolute top-4 right-4 text-slate-400 hover:text-slate-800 text-xl font-bold">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <div class="w-14 h-14 bg-brand-purple text-white rounded-2xl flex items-center justify-center mx-auto text-2xl shadow">
+                <i class="fa-solid fa-users"></i>
+            </div>
+            <h3 class="text-2xl font-black text-slate-900">Join the Community</h3>
+            <p class="text-xs text-slate-600">Access exclusive video challenges, student forums, and downloadable certificates!</p>
+            <form onsubmit="event.preventDefault(); alert('Welcome to the Builder Movement!'); toggleModal('communityModal');" class="space-y-3 pt-2">
+                <input type="text" required placeholder="Your Name" class="w-full p-3 border border-slate-300 rounded-xl text-sm outline-none">
+                <input type="email" required placeholder="Your Email" class="w-full p-3 border border-slate-300 rounded-xl text-sm outline-none">
+                <button type="submit" class="w-full py-3 bg-brand-purple hover:bg-purple-700 text-white font-extrabold rounded-xl shadow block-shadow border-2 border-purple-900 text-sm">
+                    Create Free Account
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT ENGINE & INTERACTION -->
+    <script>
+        // --- MOBILE MENU TOGGLE ---
+        const menuToggleBtn = document.getElementById('menuToggleBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        menuToggleBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // --- HERO BLOCK INTERACTION ---
+        function revealHeroBlock(title, desc, colorClass) {
+            const titleElem = document.getElementById('heroBlockTitle');
+            const descElem = document.getElementById('heroBlockDesc');
+            titleElem.innerText = '⚡ ' + title;
+            descElem.innerText = desc;
+        }
+
+        // --- SENTENCE BUILDER STATE & DATA ---
+        let currentSentenceData = {
+            subject: "She",
+            aux: "can",
+            frq: "always",
+            verb: "speak",
+            object: "English",
+            descriptors: "fluently",
+            questions: "",
+            time: "every day",
+            purpose: "to connect with people",
+            bridge: "and"
+        };
+
+        let activeModules = {
+            subject: true,
+            aux: true,
+            frq: true,
+            verb: true,
+            object: true,
+            descriptors: true,
+            questions: false,
+            time: true,
+            purpose: true,
+            bridge: false
+        };
+
+        const moduleMeta = {
+            questions: { label: 'PIRRY\'S', name: 'Questions', bg: 'bg-pink-500', border: 'border-pink-700' },
+            subject: { label: 'S', name: 'Subject', bg: 'bg-sky-500', border: 'border-sky-700' },
+            aux: { label: 'AUX', name: 'Helper', bg: 'bg-emerald-500', border: 'border-emerald-700' },
+            frq: { label: 'FRQ', name: 'Frequency', bg: 'bg-amber-400', border: 'border-amber-600', textDark: true },
+            verb: { label: 'V', name: 'Verb', bg: 'bg-red-500', border: 'border-red-700' },
+            object: { label: 'OD/ID', name: 'Object', bg: 'bg-purple-500', border: 'border-purple-700' },
+            descriptors: { label: 'OSASCOM', name: 'Descriptors', bg: 'bg-orange-500', border: 'border-orange-700' },
+            time: { label: 'TIMMY', name: 'Time', bg: 'bg-indigo-500', border: 'border-indigo-700' },
+            purpose: { label: 'WHY?', name: 'Purpose', bg: 'bg-teal-500', border: 'border-teal-700' },
+            bridge: { label: 'BRIDGE', name: 'Bridge', bg: 'bg-slate-600', border: 'border-slate-800' }
+        };
+
+        // Render the Active Sentence Blocks Line
+        function renderSentenceBuilder() {
+            const container = document.getElementById('sentenceBlocksContainer');
+            container.innerHTML = '';
+
+            let fullSentenceWords = [];
+
+            // Render active blocks in standard syntax order
+            const keysOrder = ['questions', 'subject', 'aux', 'frq', 'verb', 'object', 'descriptors', 'time', 'purpose', 'bridge'];
+
+            keysOrder.forEach(key => {
+                if (activeModules[key] && currentSentenceData[key]) {
+                    const meta = moduleMeta[key];
+                    const wordValue = currentSentenceData[key];
+                    fullSentenceWords.push(wordValue);
+
+                    const blockDiv = document.createElement('div');
+                    blockDiv.className = `p-3 rounded-xl text-white font-bold text-xs sm:text-sm shadow-md flex flex-col items-start gap-1 ${meta.bg} border-2 ${meta.border} transition-all transform hover:scale-105`;
+                    
+                    if (meta.textDark) {
+                        blockDiv.classList.remove('text-white');
+                        blockDiv.classList.add('text-slate-900');
+                    }
+
+                    blockDiv.innerHTML = `
+                        <span class="text-[10px] uppercase tracking-wider opacity-75 font-black">${meta.label} (${meta.name})</span>
+                        <span class="font-extrabold text-sm sm:text-base tracking-wide">${wordValue}</span>
+                    `;
+
+                    container.appendChild(blockDiv);
+                }
+            });
+
+            // Update compiled sentence text display
+            const sentenceDisplay = document.getElementById('assembledSentence');
+            const compiledText = fullSentenceWords.join(' ');
+            sentenceDisplay.innerText = compiledText ? `"${compiledText}."` : '"[Select modules above to build sentence]"';
+        }
+
+        function toggleModule(key) {
+            activeModules[key] = !activeModules[key];
+            const btn = document.getElementById(`btn-${key}`);
+            if (activeModules[key]) {
+                btn.classList.remove('opacity-40', 'scale-95');
+            } else {
+                btn.classList.add('opacity-40', 'scale-95');
+            }
+            renderSentenceBuilder();
+        }
+
+        function loadPreset(presetVal) {
+            if (presetVal === "1") {
+                currentSentenceData = {
+                    subject: "She", aux: "can", frq: "always", verb: "speak",
+                    object: "English", descriptors: "fluently", questions: "",
+                    time: "every day", purpose: "to connect with people", bridge: ""
+                };
+                activeModules = { subject: true, aux: true, frq: true, verb: true, object: true, descriptors: true, questions: false, time: true, purpose: true, bridge: false };
+            } else if (presetVal === "2") {
+                currentSentenceData = {
+                    questions: "Why", aux: "do", subject: "you", frq: "often",
+                    verb: "practice", object: "sentence blocks", descriptors: "carefully",
+                    time: "in the morning", purpose: "", bridge: ""
+                };
+                activeModules = { questions: true, aux: true, subject: true, frq: true, verb: true, object: true, descriptors: true, time: true, purpose: false, bridge: false };
+            } else if (presetVal === "3") {
+                currentSentenceData = {
+                    subject: "The students", aux: "will", frq: "never", verb: "forget",
+                    object: "these rules", descriptors: "easily", questions: "",
+                    time: "next year", purpose: "to pass their exams", bridge: "because it is visual"
+                };
+                activeModules = { subject: true, aux: true, frq: true, verb: true, object: true, descriptors: true, questions: false, time: true, purpose: true, bridge: true };
+            }
+
+            // Sync button styles
+            Object.keys(activeModules).forEach(key => {
+                const btn = document.getElementById(`btn-${key}`);
+                if (btn) {
+                    if (activeModules[key]) btn.classList.remove('opacity-40', 'scale-95');
+                    else btn.classList.add('opacity-40', 'scale-95');
+                }
+            });
+
+            renderSentenceBuilder();
+        }
+
+        function resetBuilder() {
+            loadPreset("1");
+            document.getElementById('presetSelect').value = "1";
+        }
+
+        // Text-to-Speech Pronunciation Feature
+        function speakSentence() {
+            const sentenceText = document.getElementById('assembledSentence').innerText.replace(/"/g, '');
+            if (!sentenceText || sentenceText.includes('[Select')) return;
+
+            if ('speechSynthesis' in window) {
+                const utterance = new SpeechSynthesisUtterance(sentenceText);
+                utterance.lang = 'en-US';
+                utterance.rate = 0.9;
+                window.speechSynthesis.speak(utterance);
+            } else {
+                alert('Text-to-speech is not supported in this browser.');
+            }
+        }
+
+        // --- MODALS AND SHOPPING CART HANDLERS ---
+        let cartCount = 1;
+
+        function toggleModal(modalId) {
+            const modal = document.getElementById(modalId);
+            if (modal) modal.classList.toggle('hidden');
+        }
+
+        function openBoardGameModal() {
+            document.getElementById('boardGameModal').classList.remove('hidden');
+        }
+
+        function closeBoardGameModal() {
+            document.getElementById('boardGameModal').classList.add('hidden');
+        }
+
+        function toggleCartModal() {
+            alert(`Shopping Cart: 1x The English Master Board Game ($39.99).\nClick "Pre-Order" to complete checkout.`);
+        }
+
+        function addToCart(item, price) {
+            cartCount++;
+            document.getElementById('cartCount').innerText = cartCount;
+            closeBoardGameModal();
+            alert(`"${item}" ($${price}) added to your cart!`);
+        }
+
+        function downloadAlert(resourceName) {
+            alert(`Downloading ${resourceName} PDF file... Thank you for learning with us!`);
+        }
+
+        function handleSubscribe(e) {
+            e.preventDefault();
+            const emailInput = document.getElementById('newsletterEmail');
+            if (emailInput.value) {
+                document.getElementById('subscribeFeedback').classList.remove('hidden');
+                emailInput.value = '';
+            }
+        }
+
+        // Initial setup on page load
+        window.onload = function() {
+            renderSentenceBuilder();
+        };
+    </script>
+</body>
+</html>
