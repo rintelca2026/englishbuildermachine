@@ -1,0 +1,910 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OSASCOM Game - English Builder Machine™</title>
+    <!-- FontAwesome icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Nunito:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --card-bg: rgba(30, 41, 59, 0.85);
+            --border-color: rgba(255, 255, 255, 0.1);
+            
+            /* OSASCOM Palette */
+            --c-determiner: #6366f1; /* Indigo */
+            --c-opinion: #ef4444;    /* Rojo */
+            --c-size: #f97316;       /* Naranja */
+            --c-age: #eab308;        /* Amarillo */
+            --c-shape: #a855f7;      /* Morado */
+            --c-color: #3b82f6;      /* Azul */
+            --c-origin: #10b981;     /* Verde */
+            --c-material: #ec4899;   /* Rosa */
+            --c-purpose: #06b6d4;    /* Cyan */
+            --c-noun: #64748b;       /* Gris */
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            user-select: none;
+        }
+
+        body {
+            font-family: 'Nunito', sans-serif;
+            background: #0f172a;
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(99, 102, 241, 0.15) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(236, 72, 153, 0.15) 0px, transparent 50%);
+            color: #f8fafc;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+        }
+
+        .glass-panel {
+            background: var(--card-bg);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--border-color);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4),
+                        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
+        }
+
+        header {
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border-color);
+            background: rgba(15, 23, 42, 0.8);
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-icon {
+            font-size: 2rem;
+            color: #6366f1;
+            filter: drop-shadow(0 0 8px rgba(99, 102, 241, 0.5));
+        }
+
+        .brand-title {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(90deg, #38bdf8, #818cf8, #c084fc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .brand-sub {
+            font-size: 0.75rem;
+            color: #94a3b8;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .stats-bar {
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+        }
+
+        .stat-badge {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 8px 16px;
+            border-radius: 16px;
+            border: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 700;
+        }
+
+        .stat-badge i {
+            color: #fbbf24;
+        }
+
+        .btn-sound {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-color);
+            color: #fff;
+            width: 42px;
+            height: 42px;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-sound:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: scale(1.05);
+        }
+
+        main {
+            flex: 1;
+            max-width: 1300px;
+            margin: 0 auto;
+            width: 100%;
+            padding: 1.5rem;
+            display: grid;
+            grid-template-columns: 340px 1fr;
+            gap: 1.5rem;
+        }
+
+        .sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .avatar-card {
+            padding: 1.5rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .avatar-img-wrapper {
+            width: 100%;
+            height: 230px;
+            border-radius: 18px;
+            overflow: hidden;
+            margin-bottom: 1rem;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+            border: 2px solid rgba(255,255,255,0.1);
+        }
+
+        .avatar-img-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .speech-bubble {
+            background: #fff;
+            color: #0f172a;
+            padding: 12px 16px;
+            border-radius: 16px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            position: relative;
+            margin-bottom: 1rem;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+        }
+
+        .speech-bubble::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-width: 8px 8px 0;
+            border-style: solid;
+            border-color: #fff transparent;
+        }
+
+        .osascom-legend {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 6px 10px;
+            border-radius: 8px;
+            background: rgba(255,255,255,0.03);
+            font-size: 0.85rem;
+            font-weight: 700;
+        }
+
+        .legend-badge {
+            width: 26px;
+            height: 26px;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-family: 'Fredoka', sans-serif;
+            font-weight: 700;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.3);
+        }
+
+        .game-area {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .mode-tabs {
+            display: flex;
+            gap: 1rem;
+            background: rgba(15, 23, 42, 0.6);
+            padding: 6px;
+            border-radius: 16px;
+            border: 1px solid var(--border-color);
+        }
+
+        .tab-btn {
+            flex: 1;
+            padding: 10px 16px;
+            border: none;
+            border-radius: 12px;
+            background: transparent;
+            color: #94a3b8;
+            font-family: 'Fredoka', sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .tab-btn.active {
+            background: #6366f1;
+            color: #fff;
+            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.4);
+        }
+
+        .board-container {
+            padding: 2rem;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 480px;
+        }
+
+        .challenge-header {
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .challenge-title {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 1.4rem;
+            color: #38bdf8;
+            margin-bottom: 4px;
+        }
+
+        .challenge-sub {
+            color: #94a3b8;
+            font-size: 0.95rem;
+        }
+
+        .target-sentence-zone {
+            background: rgba(15, 23, 42, 0.7);
+            border: 2px dashed rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            padding: 1.5rem;
+            min-height: 110px;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 1.5rem;
+            box-shadow: inset 0 4px 12px rgba(0,0,0,0.5);
+        }
+
+        .block-card {
+            padding: 12px 18px;
+            border-radius: 14px;
+            font-family: 'Fredoka', sans-serif;
+            font-weight: 600;
+            font-size: 1.1rem;
+            color: #fff;
+            cursor: pointer;
+            box-shadow: 0 6px 0 rgba(0,0,0,0.3), 0 8px 15px rgba(0,0,0,0.4);
+            transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            position: relative;
+            top: 0;
+        }
+
+        .block-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 0 rgba(0,0,0,0.3), 0 12px 20px rgba(0,0,0,0.4);
+        }
+
+        .block-card:active {
+            top: 4px;
+            box-shadow: 0 2px 0 rgba(0,0,0,0.3), 0 4px 8px rgba(0,0,0,0.4);
+        }
+
+        .block-tag {
+            font-size: 0.7rem;
+            background: rgba(0,0,0,0.25);
+            padding: 2px 6px;
+            border-radius: 6px;
+            text-transform: uppercase;
+        }
+
+        .available-blocks-zone {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 12px;
+            padding: 1rem;
+        }
+
+        .action-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 1rem;
+            gap: 10px;
+        }
+
+        .btn-action {
+            padding: 14px 24px;
+            border-radius: 16px;
+            border: none;
+            font-family: 'Fredoka', sans-serif;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-speak {
+            background: linear-gradient(135deg, #38bdf8, #0284c7);
+            color: #fff;
+            box-shadow: 0 6px 20px rgba(56, 189, 248, 0.4);
+        }
+
+        .btn-speak:hover {
+            transform: scale(1.03);
+            box-shadow: 0 8px 25px rgba(56, 189, 248, 0.6);
+        }
+
+        .btn-check {
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: #fff;
+            box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4);
+        }
+
+        .btn-check:hover {
+            transform: scale(1.03);
+            box-shadow: 0 8px 25px rgba(16, 185, 129, 0.6);
+        }
+
+        .btn-reset {
+            background: rgba(255, 255, 255, 0.1);
+            color: #94a3b8;
+        }
+
+        .btn-reset:hover {
+            background: rgba(255, 255, 255, 0.2);
+            color: #fff;
+        }
+
+        /* Sandbox Grid Layout */
+        .sandbox-container {
+            display: none;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .sandbox-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+            gap: 10px;
+            max-height: 320px;
+            overflow-y: auto;
+            padding: 10px;
+            background: rgba(15, 23, 42, 0.5);
+            border-radius: 16px;
+        }
+
+        .sandbox-col {
+            background: rgba(0,0,0,0.25);
+            padding: 8px;
+            border-radius: 12px;
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .sandbox-col-title {
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            color: #38bdf8;
+        }
+
+        .sandbox-opt {
+            padding: 6px 8px;
+            font-size: 0.85rem;
+            text-align: center;
+            background: rgba(255,255,255,0.05);
+            border-radius: 6px;
+            margin-bottom: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .sandbox-opt:hover {
+            background: rgba(255,255,255,0.2);
+            transform: translateY(-1px);
+        }
+
+        footer {
+            text-align: center;
+            padding: 1rem;
+            color: #64748b;
+            font-size: 0.85rem;
+            border-top: 1px solid var(--border-color);
+            background: rgba(15, 23, 42, 0.9);
+        }
+
+        footer strong {
+            color: #38bdf8;
+        }
+
+        @media (max-width: 900px) {
+            main {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <div class="logo-container">
+            <i class="fa-solid fa-cubes-stacked logo-icon"></i>
+            <div>
+                <h1 class="brand-title">English Builder Machine™</h1>
+                <div class="brand-sub">OSASCOM Adjective Engine</div>
+            </div>
+        </div>
+
+        <div class="stats-bar">
+            <div class="stat-badge">
+                <i class="fa-solid fa-fire"></i>
+                <span id="streak-count">0</span>
+            </div>
+            <div class="stat-badge">
+                <i class="fa-solid fa-star"></i>
+                <span id="score-count">0</span>
+            </div>
+            <button class="btn-sound" id="toggle-sound" title="Sonido On/Off">
+                <i class="fa-solid fa-volume-high"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Sidebar Avatar & OSASCOM Guide -->
+        <aside class="sidebar">
+            <div class="glass-panel avatar-card">
+                <div class="avatar-img-wrapper">
+                    <img src="11.jpg" alt="Professor OSA - English Builder Machine">
+                </div>
+                <div class="speech-bubble" id="avatar-talk">
+                    ¡Hola! Soy la Profesora OSA. ¡Construyamos oraciones perfectas con el orden OSASCOM y escuchemos su pronunciación! 🔊
+                </div>
+            </div>
+
+            <!-- Reference Legend -->
+            <div class="glass-panel" style="padding: 1.2rem;">
+                <h3 style="font-family:'Fredoka'; font-size:1.1rem; margin-bottom:12px; color:#38bdf8;">
+                    <i class="fa-solid fa-layer-group"></i> Orden OSASCOM
+                </h3>
+                <div class="osascom-legend">
+                    <div class="legend-item"><div class="legend-badge" style="background:var(--c-determiner);">D</div> Determiner (a, the, two)</div>
+                    <div class="legend-item"><div class="legend-badge" style="background:var(--c-opinion);">O</div> Opinion (beautiful, ugly)</div>
+                    <div class="legend-item"><div class="legend-badge" style="background:var(--c-size);">S</div> Size (big, small, tiny)</div>
+                    <div class="legend-item"><div class="legend-badge" style="background:var(--c-age);">A</div> Age (new, old, modern)</div>
+                    <div class="legend-item"><div class="legend-badge" style="background:var(--c-shape);">S</div> Shape (round, square)</div>
+                    <div class="legend-item"><div class="legend-badge" style="background:var(--c-color);">C</div> Color (red, blue, brown)</div>
+                    <div class="legend-item"><div class="legend-badge" style="background:var(--c-origin);">O</div> Origin (Italian, German)</div>
+                    <div class="legend-item"><div class="legend-badge" style="background:var(--c-material);">M</div> Material (leather, wooden)</div>
+                    <div class="legend-item"><div class="legend-badge" style="background:var(--c-purpose);">P</div> Purpose (shopping, travel)</div>
+                    <div class="legend-item"><div class="legend-badge" style="background:var(--c-noun);">N</div> Noun (bag, table, car)</div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Game Area -->
+        <section class="game-area">
+            <!-- Mode Switcher -->
+            <div class="mode-tabs">
+                <button class="tab-btn active" id="tab-builder" onclick="switchMode('builder')">
+                    <i class="fa-solid fa-hammer"></i> Sentence Builder
+                </button>
+                <button class="tab-btn" id="tab-sandbox" onclick="switchMode('sandbox')">
+                    <i class="fa-solid fa-flask"></i> Sandbox Lab & Audio
+                </button>
+            </div>
+
+            <!-- Mode 1: Builder Board -->
+            <div class="glass-panel board-container" id="board-builder">
+                <div class="challenge-header">
+                    <div class="challenge-title" id="challenge-target-name">Crea la descripción para el objeto:</div>
+                    <div class="challenge-sub">Toca los bloques en el orden OSASCOM correcto para formar la frase.</div>
+                </div>
+
+                <!-- Dropzone / Selected Sentence -->
+                <div>
+                    <div class="target-sentence-zone" id="sentence-dropzone">
+                        <span style="color:#64748b; font-style:italic;" id="placeholder-text">Toca las fichas de abajo para armar la oración...</span>
+                    </div>
+                </div>
+
+                <!-- Available Blocks Pool -->
+                <div class="available-blocks-zone" id="blocks-pool"></div>
+
+                <!-- Action Controls -->
+                <div class="action-bar">
+                    <button class="btn-action btn-reset" onclick="resetCurrentChallenge()">
+                        <i class="fa-solid fa-rotate-left"></i> Reiniciar
+                    </button>
+                    <button class="btn-action btn-speak" onclick="speakCurrentSentence()">
+                        <i class="fa-solid fa-volume-high"></i> Pronunciar
+                    </button>
+                    <button class="btn-action btn-check" onclick="checkAnswer()">
+                        <i class="fa-solid fa-circle-check"></i> Comprobar
+                    </button>
+                </div>
+            </div>
+
+            <!-- Mode 2: Sandbox Board -->
+            <div class="glass-panel board-container sandbox-container" id="board-sandbox">
+                <div class="challenge-header">
+                    <div class="challenge-title">Laboratorio Libre & Pronunciación</div>
+                    <div class="challenge-sub">Elige palabras de cada columna para componer frases personalizadas y escuchar la voz nativa.</div>
+                </div>
+
+                <div class="target-sentence-zone" id="sandbox-dropzone">
+                    <span style="color:#64748b; font-style:italic;">Haz clic en las categorías para añadir palabras...</span>
+                </div>
+
+                <!-- Sandbox Columns Grid -->
+                <div class="sandbox-grid" id="sandbox-grid-content"></div>
+
+                <div class="action-bar">
+                    <button class="btn-action btn-reset" onclick="clearSandbox()">
+                        <i class="fa-solid fa-trash"></i> Limpiar
+                    </button>
+                    <button class="btn-action btn-speak" onclick="speakSandboxSentence()">
+                        <i class="fa-solid fa-volume-high"></i> Escuchar Frase Completa
+                    </button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        Powered by <strong>English Builder Machine™</strong> | Gamified Grammar Systems &copy; 2026
+    </footer>
+
+    <!-- Game Logic & Speech Synthesis -->
+    <script>
+        const CATEGORIES = {
+            D: { name: 'Determiner', color: 'var(--c-determiner)', order: 1 },
+            O: { name: 'Opinion', color: 'var(--c-opinion)', order: 2 },
+            S: { name: 'Size', color: 'var(--c-size)', order: 3 },
+            A: { name: 'Age', color: 'var(--c-age)', order: 4 },
+            Sh: { name: 'Shape', color: 'var(--c-shape)', order: 5 },
+            C: { name: 'Color', color: 'var(--c-color)', order: 6 },
+            Or: { name: 'Origin', color: 'var(--c-origin)', order: 7 },
+            M: { name: 'Material', color: 'var(--c-material)', order: 8 },
+            P: { name: 'Purpose', color: 'var(--c-purpose)', order: 9 },
+            N: { name: 'Noun', color: 'var(--c-noun)', order: 10 }
+        };
+
+        const sandboxData = {
+            D: ['a', 'an', 'the', 'some', 'my', 'that'],
+            O: ['beautiful', 'expensive', 'amazing', 'useful', 'ugly', 'delicious'],
+            S: ['small', 'large', 'tiny', 'huge', 'short', 'tall'],
+            A: ['new', 'old', 'modern', 'ancient', 'young'],
+            Sh: ['round', 'square', 'oval', 'rectangular'],
+            C: ['brown', 'red', 'blue', 'black', 'white', 'green'],
+            Or: ['Italian', 'German', 'American', 'Japanese', 'Spanish'],
+            M: ['leather', 'wooden', 'metal', 'plastic', 'glass'],
+            P: ['shopping', 'racing', 'travel', 'sleeping'],
+            N: ['bag', 'table', 'car', 'watch', 'house', 'phone']
+        };
+
+        const challenges = [
+            {
+                target: "A leather backpack",
+                correctSequence: [
+                    { word: "a", cat: "D" },
+                    { word: "beautiful", cat: "O" },
+                    { word: "small", cat: "S" },
+                    { word: "new", cat: "A" },
+                    { word: "brown", cat: "C" },
+                    { word: "Italian", cat: "Or" },
+                    { word: "leather", cat: "M" },
+                    { word: "bag", cat: "N" }
+                ]
+            },
+            {
+                target: "A dining table",
+                correctSequence: [
+                    { word: "the", cat: "D" },
+                    { word: "expensive", cat: "O" },
+                    { word: "large", cat: "S" },
+                    { word: "round", cat: "Sh" },
+                    { word: "wooden", cat: "M" },
+                    { word: "table", cat: "N" }
+                ]
+            },
+            {
+                target: "A sports car",
+                correctSequence: [
+                    { word: "an", cat: "D" },
+                    { word: "amazing", cat: "O" },
+                    { word: "modern", cat: "A" },
+                    { word: "red", cat: "C" },
+                    { word: "German", cat: "Or" },
+                    { word: "racing", cat: "P" },
+                    { word: "car", cat: "N" }
+                ]
+            }
+        ];
+
+        let currentChallengeIndex = 0;
+        let selectedBlocks = [];
+        let poolBlocks = [];
+        let sandboxSelected = [];
+        let score = 0;
+        let streak = 0;
+        let soundEnabled = true;
+
+        // Web Audio API for FX
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+
+        function playSound(type) {
+            if (!soundEnabled) return;
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+
+            if (type === 'click') {
+                osc.frequency.setValueAtTime(400, audioCtx.currentTime);
+                gain.gain.setValueAtTime(0.08, audioCtx.currentTime);
+                osc.start();
+                osc.stop(audioCtx.currentTime + 0.05);
+            } else if (type === 'success') {
+                osc.frequency.setValueAtTime(523.25, audioCtx.currentTime);
+                osc.frequency.setValueAtTime(659.25, audioCtx.currentTime + 0.1);
+                osc.frequency.setValueAtTime(783.99, audioCtx.currentTime + 0.2);
+                gain.gain.setValueAtTime(0.15, audioCtx.currentTime);
+                osc.start();
+                osc.stop(audioCtx.currentTime + 0.35);
+            } else if (type === 'error') {
+                osc.frequency.setValueAtTime(200, audioCtx.currentTime);
+                gain.gain.setValueAtTime(0.15, audioCtx.currentTime);
+                osc.start();
+                osc.stop(audioCtx.currentTime + 0.2);
+            }
+        }
+
+        // Speech Synthesis Engine
+        function speakText(text) {
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel(); // Stop ongoing audio
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.lang = 'en-US';
+                utterance.rate = 0.9; // Slightly slower for clear English learning
+                window.speechSynthesis.speak(utterance);
+            } else {
+                alert("Tu navegador no soporta sintetizador de voz SpeechSynthesis.");
+            }
+        }
+
+        function speakCurrentSentence() {
+            if (selectedBlocks.length === 0) return;
+            const sentence = selectedBlocks.map(b => b.word).join(' ');
+            speakText(sentence);
+        }
+
+        function speakSandboxSentence() {
+            if (sandboxSelected.length === 0) return;
+            const sentence = sandboxSelected.map(b => b.word).join(' ');
+            speakText(sentence);
+        }
+
+        // Builder Game
+        function loadChallenge(index) {
+            const challenge = challenges[index];
+            document.getElementById('challenge-target-name').innerText = `Objeto objetivo: "${challenge.target}"`;
+            selectedBlocks = [];
+            poolBlocks = [...challenge.correctSequence].sort(() => Math.random() - 0.5);
+            renderBoard();
+        }
+
+        function renderBoard() {
+            const dropzone = document.getElementById('sentence-dropzone');
+            const pool = document.getElementById('blocks-pool');
+
+            dropzone.innerHTML = '';
+            if (selectedBlocks.length === 0) {
+                dropzone.innerHTML = '<span style="color:#64748b; font-style:italic;">Toca las fichas de abajo para armar la oración...</span>';
+            } else {
+                selectedBlocks.forEach((item, idx) => {
+                    const block = createBlockElem(item, () => unselectBlock(idx));
+                    dropzone.appendChild(block);
+                });
+            }
+
+            pool.innerHTML = '';
+            poolBlocks.forEach((item, idx) => {
+                const block = createBlockElem(item, () => selectBlock(idx));
+                pool.appendChild(block);
+            });
+        }
+
+        function createBlockElem(item, onClick) {
+            const div = document.createElement('div');
+            div.className = 'block-card';
+            const catInfo = CATEGORIES[item.cat] || { color: '#64748b' };
+            div.style.background = catInfo.color;
+            
+            div.innerHTML = `
+                <span>${item.word}</span>
+                <span class="block-tag">${item.cat}</span>
+            `;
+            div.onclick = () => {
+                playSound('click');
+                speakText(item.word); // Speak single word when clicked
+                onClick();
+            };
+            return div;
+        }
+
+        function selectBlock(index) {
+            const item = poolBlocks.splice(index, 1)[0];
+            selectedBlocks.push(item);
+            renderBoard();
+        }
+
+        function unselectBlock(index) {
+            const item = selectedBlocks.splice(index, 1)[0];
+            poolBlocks.push(item);
+            renderBoard();
+        }
+
+        function resetCurrentChallenge() {
+            playSound('click');
+            loadChallenge(currentChallengeIndex);
+        }
+
+        function checkAnswer() {
+            const challenge = challenges[currentChallengeIndex];
+            const currentSentence = selectedBlocks.map(b => b.word).join(' ');
+            const targetSentence = challenge.correctSequence.map(b => b.word).join(' ');
+
+            if (currentSentence === targetSentence) {
+                playSound('success');
+                speakText(targetSentence);
+                score += 100;
+                streak += 1;
+                document.getElementById('score-count').innerText = score;
+                document.getElementById('streak-count').innerText = streak;
+                
+                document.getElementById('avatar-talk').innerText = "¡Excelente! ¡Frase perfecta y pronunciada con éxito! 🌟";
+                
+                setTimeout(() => {
+                    currentChallengeIndex = (currentChallengeIndex + 1) % challenges.length;
+                    loadChallenge(currentChallengeIndex);
+                    document.getElementById('avatar-talk').innerText = "¡Sigamos con el siguiente reto!";
+                }, 2500);
+            } else {
+                playSound('error');
+                streak = 0;
+                document.getElementById('streak-count').innerText = streak;
+                document.getElementById('avatar-talk').innerText = "¡Casi! Revisa el orden OSASCOM. Toca 'Pronunciar' para escuchar cómo suena.";
+            }
+        }
+
+        // Sandbox Laboratory
+        function initSandbox() {
+            const grid = document.getElementById('sandbox-grid-content');
+            grid.innerHTML = '';
+
+            Object.keys(CATEGORIES).forEach(catKey => {
+                const cat = CATEGORIES[catKey];
+                const col = document.createElement('div');
+                col.className = 'sandbox-col';
+                col.innerHTML = `<div class="sandbox-col-title" style="color:${cat.color}">${catKey} (${cat.name})</div>`;
+
+                const words = sandboxData[catKey] || [];
+                words.forEach(word => {
+                    const opt = document.createElement('div');
+                    opt.className = 'sandbox-opt';
+                    opt.innerText = word;
+                    opt.onclick = () => {
+                        playSound('click');
+                        speakText(word);
+                        sandboxSelected.push({ word, cat: catKey });
+                        renderSandboxDropzone();
+                    };
+                    col.appendChild(opt);
+                });
+
+                grid.appendChild(col);
+            });
+        }
+
+        function renderSandboxDropzone() {
+            const zone = document.getElementById('sandbox-dropzone');
+            zone.innerHTML = '';
+            if (sandboxSelected.length === 0) {
+                zone.innerHTML = '<span style="color:#64748b; font-style:italic;">Haz clic en las palabras de las columnas para armar tu frase personalizada...</span>';
+                return;
+            }
+
+            sandboxSelected.forEach((item, idx) => {
+                const block = createBlockElem(item, () => {
+                    sandboxSelected.splice(idx, 1);
+                    renderSandboxDropzone();
+                });
+                zone.appendChild(block);
+            });
+        }
+
+        function clearSandbox() {
+            playSound('click');
+            sandboxSelected = [];
+            renderSandboxDropzone();
+        }
+
+        // Mode Switching
+        function switchMode(mode) {
+            playSound('click');
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+
+            if (mode === 'builder') {
+                document.getElementById('tab-builder').classList.add('active');
+                document.getElementById('board-builder').style.display = 'flex';
+                document.getElementById('board-sandbox').style.display = 'none';
+                document.getElementById('avatar-talk').innerText = "¡Modo Sentence Builder activo! ¡Construye y escucha!";
+            } else if (mode === 'sandbox') {
+                document.getElementById('tab-sandbox').classList.add('active');
+                document.getElementById('board-builder').style.display = 'none';
+                document.getElementById('board-sandbox').style.display = 'flex';
+                document.getElementById('avatar-talk').innerText = "¡Sandbox Lab! Selecciona adjetivos libremente y escucha su pronunciación nativa.";
+                initSandbox();
+            }
+        }
+
+        // Toggle Sound FX
+        document.getElementById('toggle-sound').onclick = function() {
+            soundEnabled = !soundEnabled;
+            this.innerHTML = soundEnabled ? '<i class="fa-solid fa-volume-high"></i>' : '<i class="fa-solid fa-volume-xmark"></i>';
+        };
+
+        // Initialize App
+        loadChallenge(0);
+    </script>
+</body>
+</html>
